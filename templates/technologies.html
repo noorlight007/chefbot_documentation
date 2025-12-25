@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Technology Stack &amp; Security Overview</title>
+    <!-- Responsive CSS framework -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .tech-card{
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            border: 1px solid rgba(0,0,0,.125);
+        }
+
+        .tech-card:hover{
+            transform: translateY(-6px);
+            box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.15) !important;
+            border-color: rgba(13,110,253,.5); /* bootstrap primary-ish */
+        }
+        .tech-card:has(.stretched-link:hover){
+            transform: translateY(-6px);
+            box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.15) !important;
+            border-color: #5135a9;
+        }
+        .tech-card img {
+            max-height: 80px;
+            object-fit: contain;
+        }
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: #5135a9;
+        }
+        .footnotes {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            Chefbot Technical Documentation
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('database_schema') }}">Database Schema</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('technologies') }}">Technologies</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('designs') }}">Designs</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('gpt_instructions') }}">GPT Instructions</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="mb-5 text-center">
+            <h1 class="mb-3">Technology Stack</h1>
+            <p class="lead" style="line-height: 25px;">This page introduces the key technologies powering our restaurant management and CRM platform and explains how they contribute to a secure, scalable and user‑friendly experience.</p>
+        </div>
+
+        <!-- Summary cards of technologies -->
+        <section id="overview">
+            <h2 class="mb-4 section-title">List of Technologies</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- Django Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 12.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 51448)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+	<!ENTITY ns_svg "http://www.w3.org/2000/svg">
+	<!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
+
+<svg  version="1.0" id="Layer_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="120" height="50" class="mb-3"
+	 viewBox="0 0 436.505 152.503" overflow="visible" enable-background="new 0 0 436.505 152.503" xml:space="preserve">
+<g>
+	<g>
+		<path fill="#092E20" d="M51.464,0h23.872v110.496c-12.246,2.325-21.237,3.255-31.002,3.255C15.191,113.75,0,100.576,0,75.308
+			c0-24.337,16.122-40.147,41.078-40.147c3.875,0,6.82,0.309,10.386,1.239V0z M51.464,55.62c-2.79-0.929-5.115-1.239-8.06-1.239
+			c-12.091,0-19.067,7.441-19.067,20.461c0,12.712,6.666,19.687,18.912,19.687c2.634,0,4.805-0.155,8.215-0.619V55.62z"/>
+		<path fill="#092E20" d="M113.312,36.865v55.338c0,19.067-1.395,28.212-5.58,36.118c-3.876,7.597-8.992,12.401-19.532,17.672
+			l-22.167-10.541c10.541-4.96,15.656-9.299,18.911-15.967c3.411-6.82,4.497-14.726,4.497-35.497V36.865H113.312z M89.441,0.127
+			h23.871v24.492H89.441V0.127z"/>
+		<path fill="#092E20" d="M127.731,42.29c10.542-4.959,20.617-7.129,31.623-7.129c12.246,0,20.306,3.254,23.872,9.61
+			c2.014,3.565,2.634,8.215,2.634,18.137v48.517c-10.697,1.55-24.182,2.636-34.102,2.636c-19.996,0-28.988-6.978-28.988-22.478
+			c0-16.742,11.936-24.492,41.234-26.973v-5.27c0-4.34-2.17-5.889-8.216-5.889c-8.835,0-18.756,2.48-28.058,7.286V42.29z
+			 M165.089,80.268c-15.812,1.55-20.927,4.031-20.927,10.231c0,4.65,2.946,6.82,9.456,6.82c3.566,0,6.82-0.309,11.471-1.084V80.268z
+			"/>
+		<path fill="#092E20" d="M197.487,40.585c14.105-3.72,25.731-5.424,37.512-5.424c12.246,0,21.082,2.789,26.354,8.215
+			c4.96,5.114,6.509,10.694,6.509,22.632v46.812H243.99V66.938c0-9.145-3.1-12.557-11.625-12.557c-3.255,0-6.2,0.31-11.007,1.705
+			v56.734h-23.871V40.585z"/>
+		<path fill="#092E20" d="M277.142,125.842c8.372,4.34,16.742,6.354,25.577,6.354c15.655,0,22.321-6.354,22.321-21.546
+			c0-0.155,0-0.31,0-0.465c-4.65,2.324-9.301,3.255-15.5,3.255c-20.927,0-34.26-13.796-34.26-35.652
+			c0-27.129,19.688-42.473,54.564-42.473c10.232,0,19.688,1.084,31.159,3.409l-8.174,17.219c-6.356-1.24-0.509-0.166-5.312-0.631
+			v2.481l0.309,10.074l0.154,13.022c0.155,3.254,0.155,6.51,0.311,9.765c0,2.945,0,4.341,0,6.511c0,20.462-1.705,30.072-6.82,37.977
+			c-7.441,11.627-20.307,17.362-38.598,17.362c-9.301,0-17.36-1.395-25.732-4.651V125.842z M324.576,54.536c-0.31,0-0.619,0-0.774,0
+			h-1.706c-4.649-0.155-10.074,1.084-13.796,3.409c-5.734,3.256-8.681,9.147-8.681,17.517c0,11.937,5.892,18.757,16.432,18.757
+			c3.255,0,5.891-0.621,8.99-1.55v-1.706v-6.509c0-2.79-0.154-5.892-0.154-9.146l-0.154-11.005l-0.156-7.906V54.536z"/>
+		<path fill="#092E20" d="M398.062,34.85c23.871,0,38.443,15.037,38.443,39.373c0,24.958-15.19,40.614-39.373,40.614
+			c-23.873,0-38.599-15.037-38.599-39.218C358.534,50.505,373.726,34.85,398.062,34.85z M397.595,95.614
+			c9.147,0,14.573-7.596,14.573-20.772c0-13.02-5.271-20.771-14.415-20.771c-9.457,0-14.884,7.597-14.884,20.771
+			C382.87,88.019,388.296,95.614,397.595,95.614z"/>
+	</g>
+</g>
+</svg>
+
+                            <h5 class="card-title">Django</h5>
+                            <p class="card-text" style="line-height: 25px;">A high‑level Python web framework that encourages rapid development and clean design. We use it to build the core server, handle business logic and implement authentication, authorization and API endpoints.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#django-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- PostgreSQL Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <img class="mb-2" src="data:image/png;base64,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" alt="external-postgre-sql-a-free-and-open-source-relational-database-management-system-logo-shadow-tal-revivo">
+                            <h5 class="card-title">PostgreSQL</h5>
+                            <p class="card-text" style="line-height: 25px;">An open‑source relational database known for reliability, extensibility and strong data integrity. It stores everything from users and orders to menu items and reservations.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#postgres-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Celery Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <img src="{{ url_for('static', filename='pictures/celery.jpg') }}" alt="Celery logo" class="mb-3" />
+                            <h5 class="card-title">Celery</h5>
+                            <p class="card-text" style="line-height: 25px;">A distributed task queue used to offload time‑consuming work from the main application. It lets us handle background jobs like sending notifications and generating reports efficiently.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#celery-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Twilio Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <img src="{{ url_for('static', filename='pictures/twilio-seeklogo.png') }}" height="70px" width="140px" alt="Twilio logo" class="mb-3" />
+                            <h5 class="card-title">Twilio</h5>
+                            <p class="card-text" style="line-height: 25px;">A cloud communications platform providing APIs for messaging and voice. We rely on Twilio to integrate WhatsApp and SMS notifications into our customer‑facing chatbot and CRM.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#twilio-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- OpenAI Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <svg width="150" height="70" class="mb-2" viewBox="0 0 721 721" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1637_2934)">
+<g clip-path="url(#clip1_1637_2934)">
+<path d="M304.246 294.611V249.028C304.246 245.189 305.687 242.309 309.044 240.392L400.692 187.612C413.167 180.415 428.042 177.058 443.394 177.058C500.971 177.058 537.44 221.682 537.44 269.182C537.44 272.54 537.44 276.379 536.959 280.218L441.954 224.558C436.197 221.201 430.437 221.201 424.68 224.558L304.246 294.611ZM518.245 472.145V363.224C518.245 356.505 515.364 351.707 509.608 348.349L389.174 278.296L428.519 255.743C431.877 253.826 434.757 253.826 438.115 255.743L529.762 308.523C556.154 323.879 573.905 356.505 573.905 388.171C573.905 424.636 552.315 458.225 518.245 472.141V472.145ZM275.937 376.182L236.592 353.152C233.235 351.235 231.794 348.354 231.794 344.515V238.956C231.794 187.617 271.139 148.749 324.4 148.749C344.555 148.749 363.264 155.468 379.102 167.463L284.578 222.164C278.822 225.521 275.942 230.319 275.942 237.039V376.186L275.937 376.182ZM360.626 425.122L304.246 393.455V326.283L360.626 294.616L417.002 326.283V393.455L360.626 425.122ZM396.852 570.989C376.698 570.989 357.989 564.27 342.151 552.276L436.674 497.574C442.431 494.217 445.311 489.419 445.311 482.699V343.552L485.138 366.582C488.495 368.499 489.936 371.379 489.936 375.219V480.778C489.936 532.117 450.109 570.985 396.852 570.985V570.989ZM283.134 463.99L191.486 411.211C165.094 395.854 147.343 363.229 147.343 331.562C147.343 294.616 169.415 261.509 203.48 247.593V356.991C203.48 363.71 206.361 368.508 212.117 371.866L332.074 441.437L292.729 463.99C289.372 465.907 286.491 465.907 283.134 463.99ZM277.859 542.68C223.639 542.68 183.813 501.895 183.813 451.514C183.813 447.675 184.294 443.836 184.771 439.997L279.295 494.698C285.051 498.056 290.812 498.056 296.568 494.698L417.002 425.127V470.71C417.002 474.549 415.562 477.429 412.204 479.346L320.557 532.126C308.081 539.323 293.206 542.68 277.854 542.68H277.859ZM396.852 599.776C454.911 599.776 503.37 558.513 514.41 503.812C568.149 489.896 602.696 439.515 602.696 388.176C602.696 354.587 588.303 321.962 562.392 298.45C564.791 288.373 566.231 278.296 566.231 268.224C566.231 199.611 510.571 148.267 446.274 148.267C433.322 148.267 420.846 150.184 408.37 154.505C386.775 133.392 357.026 119.958 324.4 119.958C266.342 119.958 217.883 161.22 206.843 215.921C153.104 229.837 118.557 280.218 118.557 331.557C118.557 365.146 132.95 397.771 158.861 421.283C156.462 431.36 155.022 441.437 155.022 451.51C155.022 520.123 210.682 571.466 274.978 571.466C287.931 571.466 300.407 569.549 312.883 565.228C334.473 586.341 364.222 599.776 396.852 599.776Z" fill="black"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1637_2934">
+<rect width="720" height="720" fill="white" transform="translate(0.606934 0.0999756)"/>
+</clipPath>
+<clipPath id="clip1_1637_2934">
+<rect width="484.139" height="479.818" fill="white" transform="translate(118.557 119.958)"/>
+</clipPath>
+</defs>
+</svg>
+
+                            <h5 class="card-title">OpenAI</h5>
+                            <p class="card-text" style="line-height: 25px;">The natural‑language AI platform powering our conversational assistant. It interprets questions, generates responses and helps automate routine tasks through intelligent chat interactions.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#openai-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- GitHub Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <img src="{{ url_for('static', filename='pictures/GitHub_Logo.png') }}" height="70px" width="140px" alt="GitHub logo" class="mb-2" />
+                            <h5 class="card-title">GitHub</h5>
+                            <p class="card-text" style="line-height: 25px;">A cloud‑hosted platform built around Git that lets us store, version and collaborate on our code and documentation. GitHub’s pull requests and issue tracking streamline teamwork and reviews.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#github-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Docker Card -->
+                <div class="col">
+                    <div class="card tech-card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center text-center">
+                            <svg id="Layer_1" width="150" height="70" class="cls-1 mb-2"  data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2333.95 530.79">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1d63ed;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path d="M661.56,218.08c-16.49-11.1-59.81-15.84-91.3-7.35-1.69-31.37-17.88-57.81-47.47-80.88l-10.95-7.35-7.3,11.03c-14.35,21.78-20.4,50.81-18.26,77.2,1.69,16.26,7.34,34.53,18.26,47.79-40.99,23.78-78.78,18.38-246.12,18.38H.06c-.75,37.79,5.32,110.47,51.54,169.64,5.11,6.54,10.7,12.86,16.78,18.95,37.58,37.63,94.36,65.23,179.26,65.3,129.53.12,240.5-69.9,308.01-239.18,22.21.36,80.85,3.98,109.55-51.47.7-.93,7.3-14.7,7.3-14.7l-10.94-7.35ZM168.67,183.53h-72.65v72.65h72.65v-72.65ZM262.52,183.53h-72.65v72.65h72.65v-72.65ZM356.38,183.53h-72.65v72.65h72.65v-72.65ZM450.24,183.53h-72.65v72.65h72.65v-72.65ZM74.81,183.53H2.16v72.65h72.65v-72.65ZM168.67,91.77h-72.65v72.65h72.65v-72.65ZM262.52,91.77h-72.65v72.65h72.65v-72.65ZM356.38,91.77h-72.65v72.65h72.65v-72.65ZM356.38,0h-72.65v72.65h72.65V0Z"/>
+  <g>
+    <path class="cls-1" d="M2329.44,419.3c0,18.94-14.87,33.81-34.21,33.81s-34.42-14.87-34.42-33.81,15.27-33.4,34.42-33.4,34.21,14.87,34.21,33.4ZM2269.37,419.3c0,14.87,11,26.68,26.07,26.68s25.46-11.81,25.46-26.47-10.8-26.89-25.65-26.89-25.87,12.02-25.87,26.68ZM2289.95,436.82h-7.74v-33.4c3.04-.61,7.33-1.02,12.82-1.02,6.32,0,9.16,1.02,11.61,2.45,1.84,1.42,3.26,4.07,3.26,7.33,0,3.67-2.85,6.52-6.91,7.74v.41c3.24,1.21,5.08,3.66,6.1,8.14,1.01,5.09,1.62,7.13,2.45,8.35h-8.35c-1.02-1.22-1.64-4.27-2.65-8.15-.61-3.66-2.65-5.29-6.93-5.29h-3.66v13.45ZM2290.14,417.88h3.66c4.28,0,7.74-1.42,7.74-4.88,0-3.06-2.23-5.11-7.13-5.11-2.03,0-3.46.21-4.27.43v9.56Z"/>
+    <path class="cls-1" d="M1017.16,81.28c-4.79-4.68-10.54-7.06-17.43-7.06s-12.81,2.38-17.42,7.06c-4.62,4.68-6.88,10.68-6.88,17.83v119.4c-23.7-19.59-51.05-29.47-82.16-29.47-36.16,0-67.08,13.06-92.7,39.27-25.62,26.12-38.34,57.72-38.34,94.78s12.81,68.57,38.34,94.78c25.62,26.12,56.46,39.27,92.7,39.27s66.74-13.06,92.7-39.27c25.62-25.86,38.34-57.45,38.34-94.78V99.11c0-7.15-2.35-13.15-7.15-17.83ZM968.98,355.39v.18c-4.27,10.15-10.11,19.06-17.51,26.65-7.4,7.68-16.12,13.68-26.05,18.18-10.02,4.5-20.65,6.71-32.06,6.71s-22.3-2.21-32.32-6.71c-10.02-4.5-18.65-10.5-25.96-18.09-7.32-7.59-13.15-16.5-17.42-26.65-4.27-10.24-6.45-21.09-6.45-32.57s2.18-22.33,6.45-32.57c4.27-10.24,10.11-19.06,17.42-26.65,7.32-7.59,16.03-13.59,25.96-18.09,10.02-4.5,20.74-6.71,32.32-6.71s22.04,2.21,32.06,6.71c10.02,4.5,18.65,10.5,26.05,18.18,7.4,7.68,13.24,16.59,17.51,26.65,4.27,10.15,6.45,20.92,6.45,32.39s-2.18,22.33-6.45,32.39Z"/>
+    <path class="cls-1" d="M2099.77,271.64c-6.36-15.89-16.05-30.27-28.76-43.16l-.17-.09c-25.88-26.12-56.82-39.27-92.7-39.27s-67.09,13.06-92.71,39.27c-25.62,26.12-38.33,57.72-38.33,94.78s12.81,68.57,38.33,94.78c25.62,26.12,56.47,39.27,92.71,39.27,32.92,0,61.41-10.85,85.64-32.56,4.69-4.94,7.06-10.94,7.06-17.92s-2.26-13.15-6.89-17.83c-4.61-4.68-10.45-7.06-17.42-7.06-6.09.18-11.5,2.21-16.11,6.27-7.32,6.35-15.25,11.21-23.87,14.39-8.63,3.18-18.04,4.77-28.31,4.77-9.07,0-17.78-1.41-26.05-4.32-8.29-2.91-16.03-6.89-22.92-12.09-6.98-5.21-12.98-11.38-18.12-18.71-5.14-7.24-9.06-15.27-11.67-24.09h185.32c6.87,0,12.62-2.38,17.42-7.06,4.8-4.68,7.15-10.68,7.15-17.83,0-18.53-3.24-35.74-9.58-51.54ZM1899.29,298.29c2.53-8.74,6.36-16.77,11.5-24.09,5.15-7.24,11.24-13.5,18.21-18.71,7.06-5.21,14.72-9.18,23.17-12.09,8.44-2.91,17.06-4.32,25.97-4.32s17.51,1.41,25.86,4.32c8.37,2.91,16.05,6.88,22.92,12.09,6.98,5.21,13.07,11.38,18.21,18.71,5.22,7.24,9.16,15.27,11.86,24.09h-157.71Z"/>
+    <path class="cls-1" d="M2327.51,205.89c-4.36-4.32-9.85-7.68-16.47-10.15-6.62-2.47-13.85-4.15-21.78-5.12-7.84-.97-15.25-1.41-22.12-1.41-15.61,0-30.24,2.56-44,7.68-13.77,5.12-26.49,12.44-38.17,21.97v-4.76c0-6.88-2.35-12.71-7.15-17.56-4.78-4.85-10.45-7.32-17.15-7.32s-12.64,2.47-17.42,7.32c-4.8,4.85-7.15,10.77-7.15,17.56v218.25c0,6.88,2.35,12.71,7.15,17.56,4.78,4.85,10.53,7.32,17.42,7.32s12.45-2.47,17.15-7.32c4.8-4.85,7.15-10.77,7.15-17.56v-109.17c0-11.65,2.18-22.59,6.45-32.83,4.27-10.24,10.11-19.06,17.51-26.65,7.42-7.59,16.13-13.59,26.05-17.92,10.02-4.41,20.66-6.62,32.08-6.62s22.2,2.03,32.06,6c3.91,1.77,7.32,2.65,10.28,2.65,3.4,0,6.62-.62,9.58-1.94,2.96-1.32,5.58-3.09,7.76-5.38,2.18-2.29,3.91-4.94,5.22-8.03,1.31-3,2.01-6.27,2.01-9.8,0-6.88-2.18-12.44-6.53-16.77h.08Z"/>
+    <path class="cls-1" d="M1304.49,271.73c-6.36-15.8-15.86-30.27-28.66-43.33-25.87-26.12-56.8-39.27-92.7-39.27s-67.08,13.06-92.7,39.27c-25.62,26.12-38.33,57.72-38.33,94.78s12.81,68.57,38.33,94.78c25.62,26.12,56.46,39.27,92.7,39.27s66.74-13.06,92.7-39.27c25.62-25.86,38.34-57.45,38.34-94.78-.18-18.53-3.4-35.65-9.67-51.45ZM1258.84,355.39v.18c-4.27,10.15-10.11,19.06-17.51,26.65-7.4,7.68-16.12,13.68-26.05,18.18-9.93,4.5-20.65,6.71-32.06,6.71s-22.3-2.21-32.32-6.71c-10.02-4.5-18.65-10.5-25.96-18.09-7.32-7.59-13.15-16.5-17.42-26.65-4.27-10.24-6.45-21.09-6.45-32.57s2.18-22.33,6.45-32.57c4.27-10.24,10.11-19.06,17.42-26.65,7.32-7.59,16.03-13.59,25.96-18.09,10.02-4.5,20.74-6.71,32.32-6.71s22.04,2.21,32.06,6.71c10.02,4.5,18.65,10.5,26.05,18.18,7.4,7.68,13.24,16.59,17.51,26.65,4.27,10.15,6.45,20.92,6.45,32.39s-2.18,22.33-6.45,32.39Z"/>
+    <path class="cls-1" d="M1828.62,214.01c0-3.35-.7-6.53-2-9.53-1.31-3-3.05-5.73-5.23-8.03-2.18-2.29-4.79-4.15-7.75-5.38-2.96-1.23-6.18-1.94-9.58-1.94-4.88,0-9.24,1.24-13.07,3.8l-139.92,93.11V99.29c0-7.06-2.35-12.97-7.14-17.83-4.79-4.85-10.45-7.32-17.16-7.32s-12.63,2.47-17.43,7.32c-4.79,4.85-7.14,10.77-7.14,17.83v332.71c0,6.88,2.35,12.8,7.14,17.74,4.79,4.94,10.54,7.41,17.43,7.41s12.46-2.47,17.16-7.41c4.79-4.94,7.14-10.86,7.14-17.74v-86.4l28.58-19.15,108.12,124.17c4.36,4.32,9.85,6.44,16.38,6.44,3.4,0,6.62-.62,9.58-1.94,2.96-1.24,5.58-3.09,7.75-5.38,2.18-2.29,3.92-4.94,5.23-8.03,1.31-3,2-6.27,2-9.53,0-6.53-2.26-12.36-6.8-17.47l-100.63-115.87,98.01-65.13c6.27-4.32,9.32-10.94,9.32-19.86v.18Z"/>
+    <path class="cls-1" d="M1414.36,263.7c7.49-7.59,16.21-13.59,26.23-17.92,10.02-4.41,20.65-6.62,32.06-6.62,10.28,0,19.78,1.77,28.58,5.29,8.71,3.53,17.08,8.74,25,15.53,4.7,3.79,10.02,5.73,15.94,5.73,7.06,0,12.81-2.38,17.43-7.15,4.62-4.77,6.88-10.77,6.88-17.92s-2.79-13.77-8.45-18.88c-24.05-21.71-52.53-32.57-85.38-32.57-36.16,0-67.08,13.06-92.7,39.27-25.62,26.12-38.33,57.72-38.33,94.78s12.81,68.57,38.33,94.78c25.62,26.12,56.46,39.27,92.7,39.27,32.76,0,61.25-10.85,85.38-32.57,5.14-5.29,7.76-11.38,7.76-18.44s-2.27-13.15-6.88-17.83c-4.62-4.68-10.45-7.06-17.42-7.06-5.92.18-11.07,1.94-15.42,5.29-7.84,6.88-16.03,12-24.83,15.44-8.71,3.44-18.21,5.12-28.58,5.12-11.41,0-22.04-2.21-32.06-6.62-10.02-4.41-18.73-10.41-26.23-17.91-7.49-7.5-13.42-16.5-17.69-26.65-4.27-10.24-6.45-21.18-6.45-32.83s2.18-22.59,6.45-32.83c4.27-10.24,10.19-19.06,17.69-26.65v-.09Z"/>
+  </g>
+</svg>
+                            <h5 class="card-title">Docker</h5>
+                            <p class="card-text" style="line-height: 25px;">An open platform for packaging applications into lightweight containers. We containerise our services to guarantee consistent environments across development, testing and production.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-center">
+                            <a href="#docker-details" class="stretched-link">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Detailed description section -->
+        <section id="details" class="mt-5">
+            <h2 class="mb-5 section-title">Detailed Technology Information</h2>
+
+            <!-- Django details -->
+            <article id="django-details" class="mb-5">
+                <h3 class="text-center mb-5">Django</h3>
+                <p style="line-height: 25px;">Django is a high‑level Python web framework designed for rapid development and secure, maintainable websites. It follows the “batteries included” philosophy, providing built‑in components for URL routing, data modelling (ORM), forms, authentication, sessions and more. The framework’s template system escapes dangerous characters to protect against cross‑site scripting and it generates parameterised SQL queries to mitigate SQL injection. Django also includes middleware to enforce <abbr title="Cross‑Site Request Forgery">CSRF</abbr> protection by requiring a unique token in every POST request. For password storage, Django uses a secure hashing system based on the PBKDF2 algorithm with a random salt and configurable work factor. These features let us build our application quickly while meeting high security and reliability standards.</p>
+                <p style="line-height: 25px;">We chose Django because its mature ecosystem reduces development time and because it provides robust tools to build APIs, admin interfaces and background tasks. The framework’s emphasis on security gives us confidence that customer data is protected against common web attacks. Additionally, Django scales well and runs on all major operating systems, making it an ideal foundation for our restaurant management platform.</p>
+            </article>
+
+            <!-- PostgreSQL details -->
+            <article id="postgres-details" class="mb-5">
+                <h3 class="text-center mb-5">PostgreSQL</h3>
+                <p style="line-height: 25px;">PostgreSQL is a powerful, open‑source object‑relational database system that extends SQL and stores and scales complex workloads. It has a long history of active development and is renowned for reliability, data integrity and extensibility. PostgreSQL supports a wide variety of data types, provides ACID‑compliant transactions, implements write‑ahead logging for crash safety and offers replication options for high availability. Security features include authentication methods (GSSAPI, SSPI, LDAP and TLS), row‑level security and granular privilege control, enabling us to protect customer information at the database layer.</p>
+                <p style="line-height: 25px;">We selected PostgreSQL because its strong consistency and transaction guarantees are critical for financial records, reservations and order processing. Its extensibility lets us define custom functions and types, while its broad community support ensures continued innovation and stability. PostgreSQL’s support for advanced features like JSON fields and full‑text search makes it a versatile choice for our CRM system.</p>
+            </article>
+
+            <!-- Celery details -->
+            <article id="celery-details" class="mb-5">
+                <h3 class="text-center mb-5">Celery</h3>
+                <p style="line-height: 25px;">Celery is a simple, flexible and reliable distributed system for processing messages and scheduling periodic tasks. It allows applications to offload work to background workers via a message broker, supporting real‑time processing and scheduled jobs. Celery scales horizontally—multiple workers can process tasks concurrently—and it works with various brokers such as RabbitMQ and Redis. It is highly available, fast enough to process millions of tasks per minute, and flexible: developers can choose different concurrency strategies and result back‑ends. Celery also supports cryptographic message signing to protect task data and ensure messages are not tampered with.</p>
+                <p style="line-height: 25px;">In our system, Celery handles tasks that should not block user requests—sending order confirmations, generating daily sales reports and interacting with external APIs. Offloading these operations improves responsiveness and keeps the main application thread free to serve customer requests. Celery’s scheduling capabilities also power recurring jobs such as promotions and periodic database maintenance.</p>
+            </article>
+
+            <!-- Twilio details -->
+            <article id="twilio-details" class="mb-5">
+                <h3 class="text-center mb-5">Twilio</h3>
+                <p style="line-height: 25px;">Twilio is a cloud communications platform that exposes telephony and messaging capabilities through simple REST APIs. Developers can programmatically send and receive SMS, MMS, WhatsApp messages, voice calls, video and email through Twilio’s APIs. Twilio abstracts away the complexity of dealing with global carriers and allows applications to reach users worldwide with pay‑as‑you‑go pricing. Its robust API ecosystem covers SMS, voice, WhatsApp, video and email, making it a comprehensive platform for customer engagement.</p>
+                <p style="line-height: 25px;">We integrate Twilio to enable automated WhatsApp and SMS notifications. Customers receive reservation reminders, order updates and marketing messages through the same WhatsApp number used by our chatbot. Twilio’s security model requires HTTPS and uses TLS encryption to protect data in transit; customer data is also encrypted at rest using the Advanced Encryption Standard. Twilio performs regular vulnerability scanning and penetration testing to maintain a secure platform. These measures ensure our communications channel complies with industry‑standard security practices.</p>
+            </article>
+
+            <!-- OpenAI details -->
+            <article id="openai-details" class="mb-5">
+                <h3 class="text-center mb-5">OpenAI</h3>
+                <p style="line-height: 25px;">The OpenAI API provides a general‑purpose “text in, text out” interface to large language models. Unlike many AI services designed for a single use case, this API can tackle virtually any English language task, returning a text completion that matches the provided pattern. Developers can supply example prompts to tailor the model’s behaviour or fine‑tune it with custom data. The API is designed to be simple yet flexible and is continually updated with improvements to keep users at the forefront of natural‑language technology. The ChatGPT API allows applications to integrate conversational AI, generating human‑like responses, answering questions and supporting multiple languages.</p>
+                <p style="line-height: 25px;">In our project, we use OpenAI to power an intelligent assistant that helps customers place orders, answer common questions and perform tasks within WhatsApp. By leveraging a state‑of‑the‑art language model, we offer personalized and engaging interactions without building our own natural‑language processing pipeline. We also respect OpenAI’s safety guidelines and only enable supported use cases; the API prohibits harmful behaviours and uses a production review process to mitigate misuse.</p>
+            </article>
+
+            <!-- Responsive UI Framework details
+            <article id="ui-framework-details" class="mb-5">
+                <h3>Responsive&nbsp;UI&nbsp;Framework</h3>
+                <p>A CSS framework is a pre‑written library of styles and design patterns used to create consistent and responsive web layouts. Such frameworks typically include a grid system, typography rules and common user interface elements like buttons, forms and navigation menus【631804265715900†L80-L84】. By providing ready‑made design elements and responsive layouts that can be customised, they streamline the development process and ensure consistency across a website or application【631804265715900†L86-L90】.</p>
+                <p>In our project, we use a responsive front‑end framework to guarantee that tables, diagrams and text render correctly on phones, tablets, laptops and desktops. Its grid and component system allows us to build layouts and interactive elements quickly, while the underlying CSS and JavaScript utilities reduce the need for custom styling.</p>
+            </article> -->
+
+            <!-- GitHub details -->
+            <article id="github-details" class="mb-5">
+                <h3 class="text-center mb-5">GitHub</h3>
+                <p style="line-height: 25px;">GitHub is a cloud‑based platform for storing, sharing and collaborating on code. Built around the Git version control system, GitHub allows developers to showcase their work, track changes and review contributions without interfering with one another. Git provides branching and merging features that let teams work on features concurrently and integrate updates seamlessly.</p>
+                <p style="line-height: 25px;">We host our source code and project documentation on GitHub because it simplifies collaboration through pull requests, code reviews and issue tracking. GitHub’s integration with continuous integration and deployment tools enables automated testing and deployment pipelines, while its public and private repositories make it easy to manage both open‑source components and proprietary code.</p>
+            </article>
+
+            <!-- Docker details -->
+            <article id="docker-details" class="mb-5">
+                <h3 class="text-center mb-5">Docker</h3>
+                <p style="line-height: 25px;">Docker is an open platform for developing, shipping and running applications. It packages software and its dependencies into lightweight, isolated containers so that applications can run consistently across different environments. These containers contain everything needed to run the application and allow many workloads to share the same host while remaining secure and portable.</p>
+                <p style="line-height: 25px;">By containerising our services with Docker, we can deliver software quickly and consistently from development through testing and production. Docker enables fast, continuous integration and delivery workflows and supports scalability; containers can be spun up or shut down rapidly to handle varying workloads. Because containers are lightweight and efficient, they run more workloads on the same hardware, providing a cost‑effective alternative to traditional virtual machines.</p>
+            </article>
+        </section>
+
+        <!-- Advanced Security section -->
+        <section id="security" class="mt-5">
+            <h2 class="mb-4 section-title">Advanced Security &amp; Compliance</h2>
+            <p  style="line-height: 25px;">Protecting customer data is paramount. Our platform combines secure coding practices, robust infrastructure and compliance with international privacy regulations.</p>
+            <div class="row gy-4">
+                <!-- Authentication & Authorization -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title">Authentication &amp; Authorization</h4>
+                            <ul>
+                                <li class="mb-2"><strong>Secure password storage:</strong> Django hashes passwords using PBKDF2 with a salt and configurable work factor.</li>
+                                <li class="mb-2"><strong>Role‑based permissions:</strong> Built‑in models for users, groups and permissions let us enforce fine‑grained access control.</li>
+                                <li class="mb-2"><strong>Token‑based sessions:</strong> JSON Web Tokens (JWT) and session cookies are rotated regularly and stored securely.</li>
+                                <li class="mb-2"><strong>Multi‑factor verification:</strong> Twilio’s Verify API can be integrated to add a second step during login, strengthening account protection.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Application Security -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title">Application Security</h4>
+                            <ul>
+                                <li class="mb-2"><strong>SQL injection prevention:</strong> Django’s ORM constructs parameterised queries, protecting against malicious SQL.</li>
+                                <li class="mb-2"><strong>XSS protection:</strong> Templates escape HTML by default to prevent injection attacks.</li>
+                                <li class="mb-2"><strong>CSRF mitigation:</strong> A unique token is included in every POST request and verified server‑side.</li>
+                                <li class="mb-2"><strong>Celery message signing:</strong> Tasks can be cryptographically signed to ensure message authenticity.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Data & Database Security -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title">Data &amp; Database Security</h4>
+                            <ul>
+                                <li class="mb-2"><strong>Row‑level security:</strong> PostgreSQL lets us restrict access to rows based on policies.</li>
+                                <li class="mb-2"><strong>Encryption at rest and in transit:</strong> Sensitive data is encrypted in the database and Twilio encrypts customer data using TLS v1.2 in transit and AES at rest.</li>
+                                <li class="mb-2"><strong>Regular backups &amp; replication:</strong> Automated backups and replication across multiple availability zones ensure resilience and disaster recovery.</li>
+                                <li class="mb-2"><strong>Access controls:</strong> Database credentials are stored in environment variables and rotated periodically; least‑privilege principles are enforced.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Privacy & GDPR -->
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title">Privacy &amp; GDPR Compliance</h4>
+                            <ul>
+                                <li class="mb-2"><strong>Data minimization:</strong> We collect only the personal data necessary to operate our services and avoid storing unnecessary information.</li>
+                                <li class="mb-2"><strong>Purpose limitation:</strong> Personal data is used only for the purposes communicated to users and not repurposed without consent.</li>
+                                <li class="mb-2"><strong>Integrity &amp; confidentiality:</strong> Measures like encryption, access controls and secure coding uphold the integrity and confidentiality of data.</li>
+                                <li class="mb-2"><strong>Accountability:</strong> We document data processing activities and provide mechanisms for users to request data deletion or export.</li>
+                                <li class="mb-2"><strong>Transparent policies:</strong> Our privacy policy explains how data is used, stored and shared, fulfilling the GDPR principle of lawfulness, fairness and transparency.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Responsive framework JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

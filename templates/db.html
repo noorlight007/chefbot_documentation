@@ -1,0 +1,2855 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restaurant Management & CRM Database Schema</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+      body {
+        padding-top: 70px;
+        
+      }
+      .sidebar {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        padding: 20px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+      }
+      .content {
+        margin-left: 270px;
+        padding: 20px;
+      }
+      pre.mermaid {
+        background-color: #ffffff;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            Chefbot Technical Documentation
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('database_schema') }}">Database Schema</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('technologies') }}">Technologies</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('designs') }}">Designs</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('gpt_instructions') }}">GPT Instructions</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="sidebar">
+      <h5>Tables</h5>
+      <div class="list-group">
+        <a href="#auth_group" class="list-group-item list-group-item-action"
+          >auth_group</a
+        ><a
+          href="#auth_group_permissions"
+          class="list-group-item list-group-item-action"
+          >auth_group_permissions</a
+        ><a
+          href="#auth_permission"
+          class="list-group-item list-group-item-action"
+          >auth_permission</a
+        ><a
+          href="#authentication_registrationsession"
+          class="list-group-item list-group-item-action"
+          >authentication_registrationsession</a
+        ><a
+          href="#authentication_user"
+          class="list-group-item list-group-item-action"
+          >authentication_user</a
+        ><a
+          href="#authentication_user_groups"
+          class="list-group-item list-group-item-action"
+          >authentication_user_groups</a
+        ><a
+          href="#authentication_user_user_permissions"
+          class="list-group-item list-group-item-action"
+          >authentication_user_user_permissions</a
+        ><a
+          href="#django_admin_log"
+          class="list-group-item list-group-item-action"
+          >django_admin_log</a
+        ><a
+          href="#django_celery_beat_clockedschedule"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_clockedschedule</a
+        ><a
+          href="#django_celery_beat_crontabschedule"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_crontabschedule</a
+        ><a
+          href="#django_celery_beat_intervalschedule"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_intervalschedule</a
+        ><a
+          href="#django_celery_beat_periodictask"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_periodictask</a
+        ><a
+          href="#django_celery_beat_periodictasks"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_periodictasks</a
+        ><a
+          href="#django_celery_beat_solarschedule"
+          class="list-group-item list-group-item-action"
+          >django_celery_beat_solarschedule</a
+        ><a
+          href="#django_content_type"
+          class="list-group-item list-group-item-action"
+          >django_content_type</a
+        ><a
+          href="#django_migrations"
+          class="list-group-item list-group-item-action"
+          >django_migrations</a
+        ><a
+          href="#django_session"
+          class="list-group-item list-group-item-action"
+          >django_session</a
+        ><a
+          href="#organization_messagetemplate"
+          class="list-group-item list-group-item-action"
+          >organization_messagetemplate</a
+        ><a
+          href="#organization_openinghours"
+          class="list-group-item list-group-item-action"
+          >organization_openinghours</a
+        ><a
+          href="#organization_organization"
+          class="list-group-item list-group-item-action"
+          >organization_organization</a
+        ><a
+          href="#organization_organizationuser"
+          class="list-group-item list-group-item-action"
+          >organization_organizationuser</a
+        ><a
+          href="#organization_template"
+          class="list-group-item list-group-item-action"
+          >organization_template</a
+        ><a
+          href="#restaurant_client"
+          class="list-group-item list-group-item-action"
+          >restaurant_client</a
+        ><a
+          href="#restaurant_clientmessage"
+          class="list-group-item list-group-item-action"
+          >restaurant_clientmessage</a
+        ><a
+          href="#restaurant_menu"
+          class="list-group-item list-group-item-action"
+          >restaurant_menu</a
+        ><a
+          href="#restaurant_menu_recommended_combinations"
+          class="list-group-item list-group-item-action"
+          >restaurant_menu_recommended_combinations</a
+        ><a
+          href="#restaurant_promotion"
+          class="list-group-item list-group-item-action"
+          >restaurant_promotion</a
+        ><a
+          href="#restaurant_promotionsentlog"
+          class="list-group-item list-group-item-action"
+          >restaurant_promotionsentlog</a
+        ><a
+          href="#restaurant_promotiontrigger"
+          class="list-group-item list-group-item-action"
+          >restaurant_promotiontrigger</a
+        ><a
+          href="#restaurant_promotiontrigger_menus"
+          class="list-group-item list-group-item-action"
+          >restaurant_promotiontrigger_menus</a
+        ><a
+          href="#restaurant_reservation"
+          class="list-group-item list-group-item-action"
+          >restaurant_reservation</a
+        ><a
+          href="#restaurant_reservation_menus"
+          class="list-group-item list-group-item-action"
+          >restaurant_reservation_menus</a
+        ><a
+          href="#restaurant_restaurantdocument"
+          class="list-group-item list-group-item-action"
+          >restaurant_restaurantdocument</a
+        ><a
+          href="#restaurant_restauranttable"
+          class="list-group-item list-group-item-action"
+          >restaurant_restauranttable</a
+        ><a
+          href="#restaurant_reward"
+          class="list-group-item list-group-item-action"
+          >restaurant_reward</a
+        ><a
+          href="#restaurant_saleslevel"
+          class="list-group-item list-group-item-action"
+          >restaurant_saleslevel</a
+        ><a
+          href="#restaurant_whatsappbot"
+          class="list-group-item list-group-item-action"
+          >restaurant_whatsappbot</a
+        ><a
+          href="#token_blacklist_blacklistedtoken"
+          class="list-group-item list-group-item-action"
+          >token_blacklist_blacklistedtoken</a
+        ><a
+          href="#token_blacklist_outstandingtoken"
+          class="list-group-item list-group-item-action"
+          >token_blacklist_outstandingtoken</a
+        >
+      </div>
+    </div>
+    <div class="content">
+      <h2>Restaurant Management & CRM Database Schema</h2>
+      <p>
+        This documentation provides an overview of the database schema used in
+        the Restaurant Management and CRM system. Each section below describes
+        the purpose of a table, its columns and relationships to other tables.
+      </p>
+      <h3>Entity Relationship Diagram</h3>
+      <p>The diagram below visualizes table relationships.</p>
+      <div class="card mb-4">
+        <div class="card-body">
+          <pre class="mermaid">
+erDiagram
+    auth_group {
+        int id PK
+        varchar name 
+    }
+    auth_group_permissions {
+        int id PK
+        int group_id 
+        int permission_id 
+    }
+    auth_permission {
+        int id PK
+        varchar name 
+        int content_type_id 
+        varchar codename 
+    }
+    authentication_registrationsession {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar avatar 
+        varchar first_name 
+    }
+    authentication_user {
+        int id PK
+        varchar password 
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar first_name 
+    }
+    authentication_user_groups {
+        int id PK
+        int user_id 
+        int group_id 
+    }
+    authentication_user_user_permissions {
+        int id PK
+        int user_id 
+        int permission_id 
+    }
+    django_admin_log {
+        int id PK
+        timestamp action_time 
+        text object_id 
+        varchar object_repr 
+        int action_flag 
+        text change_message 
+    }
+    django_celery_beat_clockedschedule {
+        int id PK
+        timestamp clocked_time 
+    }
+    django_celery_beat_crontabschedule {
+        int id PK
+        varchar minute 
+        varchar hour 
+        varchar day_of_week 
+        varchar day_of_month 
+        varchar month_of_year 
+    }
+    django_celery_beat_intervalschedule {
+        int id PK
+        int every 
+        varchar period 
+    }
+    django_celery_beat_periodictask {
+        int id PK
+        varchar name 
+        varchar task 
+        text args 
+        text kwargs 
+        varchar queue 
+    }
+    django_celery_beat_periodictasks {
+        int ident 
+        timestamp last_update 
+    }
+    django_celery_beat_solarschedule {
+        int id PK
+        varchar event 
+        decimal latitude 
+        decimal longitude 
+    }
+    django_content_type {
+        int id PK
+        varchar app_label 
+        varchar model 
+    }
+    django_migrations {
+        int id PK
+        varchar app 
+        varchar name 
+        timestamp applied 
+    }
+    django_session {
+        varchar session_key 
+        text session_data 
+        timestamp expire_date 
+    }
+    organization_messagetemplate {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar name 
+        varchar content_sid 
+    }
+    organization_openinghours {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar day 
+        time opening_start_time 
+    }
+    organization_organization {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar logo 
+        varchar phone 
+    }
+    organization_organizationuser {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        int organization_id 
+        int user_id 
+    }
+    organization_template {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar content_sid 
+        json content_variables 
+    }
+    restaurant_client {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar avatar 
+        varchar name 
+    }
+    restaurant_clientmessage {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar role 
+        text message 
+    }
+    restaurant_menu {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar image 
+        varchar name 
+    }
+    restaurant_menu_recommended_combinations {
+        int id PK
+        int from_menu_id 
+        int to_menu_id 
+    }
+    restaurant_promotion {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar title 
+        date valid_from 
+    }
+    restaurant_promotionsentlog {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        timestamp sent_at 
+        varchar status 
+    }
+    restaurant_promotiontrigger {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar type 
+        varchar yearly_category 
+    }
+    restaurant_promotiontrigger_menus {
+        int id PK
+        int promotiontrigger_id 
+        int menu_id 
+    }
+    restaurant_reservation {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar reservation_name 
+        varchar reservation_phone 
+    }
+    restaurant_reservation_menus {
+        int id PK
+        int reservation_id 
+        int menu_id 
+    }
+    restaurant_restaurantdocument {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar name 
+        varchar document_type 
+    }
+    restaurant_restauranttable {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar name 
+        int capacity 
+    }
+    restaurant_reward {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar type 
+        varchar label 
+    }
+    restaurant_saleslevel {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar name 
+        int level 
+    }
+    restaurant_whatsappbot {
+        int id PK
+        uuid uid 
+        timestamp created_at 
+        timestamp updated_at 
+        varchar chatbot_name 
+        varchar chatbot_language 
+    }
+    token_blacklist_blacklistedtoken {
+        int id PK
+        timestamp blacklisted_at 
+        int token_id 
+    }
+    token_blacklist_outstandingtoken {
+        int id PK
+        text token 
+        timestamp created_at 
+        timestamp expires_at 
+        int user_id 
+        varchar jti 
+    }
+    auth_permission ||--o{ auth_group_permissions : "FK"
+    auth_group ||--o{ auth_group_permissions : "FK"
+    django_content_type ||--o{ auth_permission : "FK"
+    auth_permission ||--o{ authentication_user_user_permissions : "FK"
+    authentication_user ||--o{ authentication_user_groups : "FK"
+    authentication_user ||--o{ authentication_user_user_permissions : "FK"
+    auth_group ||--o{ authentication_user_groups : "FK"
+    django_content_type ||--o{ django_admin_log : "FK"
+    authentication_user ||--o{ django_admin_log : "FK"
+    django_celery_beat_clockedschedule ||--o{ django_celery_beat_periodictask : "FK"
+    django_celery_beat_crontabschedule ||--o{ django_celery_beat_periodictask : "FK"
+    django_celery_beat_intervalschedule ||--o{ django_celery_beat_periodictask : "FK"
+    django_celery_beat_solarschedule ||--o{ django_celery_beat_periodictask : "FK"
+    organization_organization ||--o{ organization_messagetemplate : "FK"
+    organization_organization ||--o{ organization_openinghours : "FK"
+    organization_organization ||--o{ organization_organizationuser : "FK"
+    organization_organization ||--o{ organization_organization : "FK"
+    authentication_user ||--o{ organization_organizationuser : "FK"
+    organization_organization ||--o{ restaurant_client : "FK"
+    restaurant_client ||--o{ restaurant_clientmessage : "FK"
+    restaurant_reservation ||--o{ restaurant_clientmessage : "FK"
+    organization_organization ||--o{ restaurant_menu : "FK"
+    restaurant_menu ||--o{ restaurant_menu_recommended_combinations : "FK"
+    restaurant_menu ||--o{ restaurant_menu_recommended_combinations : "FK"
+    restaurant_client ||--o{ restaurant_promotionsentlog : "FK"
+    restaurant_menu ||--o{ restaurant_promotiontrigger_menus : "FK"
+    organization_messagetemplate ||--o{ restaurant_promotionsentlog : "FK"
+    organization_messagetemplate ||--o{ restaurant_promotion : "FK"
+    organization_organization ||--o{ restaurant_promotion : "FK"
+    restaurant_promotion ||--o{ restaurant_promotionsentlog : "FK"
+    restaurant_promotiontrigger ||--o{ restaurant_promotiontrigger_menus : "FK"
+    restaurant_reward ||--o{ restaurant_promotion : "FK"
+    restaurant_promotiontrigger ||--o{ restaurant_promotion : "FK"
+    restaurant_client ||--o{ restaurant_reservation : "FK"
+    restaurant_menu ||--o{ restaurant_reservation_menus : "FK"
+    organization_organization ||--o{ restaurant_reservation : "FK"
+    restaurant_reward ||--o{ restaurant_reservation : "FK"
+    restaurant_reservation ||--o{ restaurant_reservation_menus : "FK"
+    restaurant_reward ||--o{ restaurant_reservation : "FK"
+    restaurant_restauranttable ||--o{ restaurant_reservation : "FK"
+    organization_organization ||--o{ restaurant_restaurantdocument : "FK"
+    organization_organization ||--o{ restaurant_restauranttable : "FK"
+    organization_organization ||--o{ restaurant_reward : "FK"
+    organization_organization ||--o{ restaurant_saleslevel : "FK"
+    restaurant_reward ||--o{ restaurant_saleslevel : "FK"
+    organization_organization ||--o{ restaurant_whatsappbot : "FK"
+    restaurant_saleslevel ||--o{ restaurant_whatsappbot : "FK"
+    token_blacklist_outstandingtoken ||--o{ token_blacklist_blacklistedtoken : "FK"
+    authentication_user ||--o{ token_blacklist_outstandingtoken : "FK"
+</pre
+          >
+        </div>
+      </div>
+      <h4 id="auth_group" class="mt-5">auth_group</h4>
+      <p>Stores authentication groups and permissions for the application.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(150) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>auth_group_permissions</strong>(group_id)</li>
+        <li><strong>authentication_user_groups</strong>(group_id)</li>
+      </ul>
+      <h4 id="auth_group_permissions" class="mt-5">auth_group_permissions</h4>
+      <p>Stores authentication groups and permissions for the application.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>group_id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>permission_id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>permission_id → <strong>auth_permission</strong>(id)</li>
+        <li>group_id → <strong>auth_group</strong>(id)</li>
+      </ul>
+      <h4 id="auth_permission" class="mt-5">auth_permission</h4>
+      <p>Stores authentication groups and permissions for the application.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_type_id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>codename</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>content_type_id → <strong>django_content_type</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>auth_group_permissions</strong>(permission_id)</li>
+        <li>
+          <strong>authentication_user_user_permissions</strong>(permission_id)
+        </li>
+      </ul>
+      <h4 id="authentication_registrationsession" class="mt-5">
+        authentication_registrationsession
+      </h4>
+      <p>Stores user authentication and session information for the system.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>avatar</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>first_name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>last_name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>character varying(128)</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>gender</td>
+              <td>character varying(20)</td>
+            </tr>
+            <tr>
+              <td>date_of_birth</td>
+              <td>date</td>
+            </tr>
+            <tr>
+              <td>user_type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>currency</td>
+              <td>character varying(10) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 id="authentication_user" class="mt-5">authentication_user</h4>
+      <p>Stores user authentication and session information for the system.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td>character varying(128) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>first_name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>last_name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>character varying(128)</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>avatar</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>gender</td>
+              <td>character varying(20)</td>
+            </tr>
+            <tr>
+              <td>date_of_birth</td>
+              <td>date</td>
+            </tr>
+            <tr>
+              <td>date_joined</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>last_login</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td>character varying(10) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>user_type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>language</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>is_active</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>is_staff</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>is_superuser</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>currency</td>
+              <td>character varying(10) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>authentication_user_groups</strong>(user_id)</li>
+        <li><strong>authentication_user_user_permissions</strong>(user_id)</li>
+        <li><strong>django_admin_log</strong>(user_id)</li>
+        <li><strong>organization_organizationuser</strong>(user_id)</li>
+        <li><strong>token_blacklist_outstandingtoken</strong>(user_id)</li>
+      </ul>
+      <h4 id="authentication_user_groups" class="mt-5">
+        authentication_user_groups
+      </h4>
+      <p>Stores user authentication and session information for the system.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>group_id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>user_id → <strong>authentication_user</strong>(id)</li>
+        <li>group_id → <strong>auth_group</strong>(id)</li>
+      </ul>
+      <h4 id="authentication_user_user_permissions" class="mt-5">
+        authentication_user_user_permissions
+      </h4>
+      <p>Stores user authentication and session information for the system.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>permission_id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>permission_id → <strong>auth_permission</strong>(id)</li>
+        <li>user_id → <strong>authentication_user</strong>(id)</li>
+      </ul>
+      <h4 id="django_admin_log" class="mt-5">django_admin_log</h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>action_time</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>object_id</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>object_repr</td>
+              <td>character varying(200) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>action_flag</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>change_message</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_type_id</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>content_type_id → <strong>django_content_type</strong>(id)</li>
+        <li>user_id → <strong>authentication_user</strong>(id)</li>
+      </ul>
+      <h4 id="django_celery_beat_clockedschedule" class="mt-5">
+        django_celery_beat_clockedschedule
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>clocked_time</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>django_celery_beat_periodictask</strong>(clocked_id)</li>
+      </ul>
+      <h4 id="django_celery_beat_crontabschedule" class="mt-5">
+        django_celery_beat_crontabschedule
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>minute</td>
+              <td>character varying(240) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>hour</td>
+              <td>character varying(96) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>day_of_week</td>
+              <td>character varying(64) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>day_of_month</td>
+              <td>character varying(124) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>month_of_year</td>
+              <td>character varying(64) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>timezone</td>
+              <td>character varying(63) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>django_celery_beat_periodictask</strong>(crontab_id)</li>
+      </ul>
+      <h4 id="django_celery_beat_intervalschedule" class="mt-5">
+        django_celery_beat_intervalschedule
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>every</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>period</td>
+              <td>character varying(24) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>django_celery_beat_periodictask</strong>(interval_id)</li>
+      </ul>
+      <h4 id="django_celery_beat_periodictask" class="mt-5">
+        django_celery_beat_periodictask
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(200) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>task</td>
+              <td>character varying(200) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>args</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>kwargs</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>queue</td>
+              <td>character varying(200)</td>
+            </tr>
+            <tr>
+              <td>exchange</td>
+              <td>character varying(200)</td>
+            </tr>
+            <tr>
+              <td>routing_key</td>
+              <td>character varying(200)</td>
+            </tr>
+            <tr>
+              <td>expires</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>last_run_at</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>total_run_count</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>date_changed</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>description</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>crontab_id</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>interval_id</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>solar_id</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>one_off</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>start_time</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>priority</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>headers</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>clocked_id</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>expire_seconds</td>
+              <td>integer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          clocked_id → <strong>django_celery_beat_clockedschedule</strong>(id)
+        </li>
+        <li>
+          crontab_id → <strong>django_celery_beat_crontabschedule</strong>(id)
+        </li>
+        <li>
+          interval_id → <strong>django_celery_beat_intervalschedule</strong>(id)
+        </li>
+        <li>
+          solar_id → <strong>django_celery_beat_solarschedule</strong>(id)
+        </li>
+      </ul>
+      <h4 id="django_celery_beat_periodictasks" class="mt-5">
+        django_celery_beat_periodictasks
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ident</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>last_update</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 id="django_celery_beat_solarschedule" class="mt-5">
+        django_celery_beat_solarschedule
+      </h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>event</td>
+              <td>character varying(24) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>latitude</td>
+              <td>numeric(9</td>
+            </tr>
+            <tr>
+              <td>longitude</td>
+              <td>numeric(9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>django_celery_beat_periodictask</strong>(solar_id)</li>
+      </ul>
+      <h4 id="django_content_type" class="mt-5">django_content_type</h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>app_label</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>model</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>auth_permission</strong>(content_type_id)</li>
+        <li><strong>django_admin_log</strong>(content_type_id)</li>
+      </ul>
+      <h4 id="django_migrations" class="mt-5">django_migrations</h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>app</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>applied</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 id="django_session" class="mt-5">django_session</h4>
+      <p>
+        Stores Django framework internal information and administrative logs.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>session_key</td>
+              <td>character varying(40) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>session_data</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>expire_date</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 id="organization_messagetemplate" class="mt-5">
+        organization_messagetemplate
+      </h4>
+      <p>Stores message templates associated with organizations.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_sid</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_variables</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li>
+          <strong>restaurant_promotionsentlog</strong>(message_template_id)
+        </li>
+        <li><strong>restaurant_promotion</strong>(message_template_id)</li>
+      </ul>
+      <h4 id="organization_openinghours" class="mt-5">
+        organization_openinghours
+      </h4>
+      <p>Stores opening hours for organizations.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>day</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>opening_start_time</td>
+              <td>time without time zone</td>
+            </tr>
+            <tr>
+              <td>opening_end_time</td>
+              <td>time without time zone</td>
+            </tr>
+            <tr>
+              <td>break_start_time</td>
+              <td>time without time zone</td>
+            </tr>
+            <tr>
+              <td>break_end_time</td>
+              <td>time without time zone</td>
+            </tr>
+            <tr>
+              <td>is_closed</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h4 id="organization_organization" class="mt-5">
+        organization_organization
+      </h4>
+      <p>
+        Stores information about organizations (e.g., restaurants) such as
+        contact details and brand information.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>logo</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>character varying(128)</td>
+            </tr>
+            <tr>
+              <td>whatsapp_number</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>whatsapp_enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>description</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>website</td>
+              <td>character varying(200)</td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_language</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>country</td>
+              <td>character varying NOT NULL</td>
+            </tr>
+            <tr>
+              <td>city</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>street</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>zip_code</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_booking_reminder</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>parent_id</td>
+              <td>bigint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>parent_id → <strong>organization_organization</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>organization_messagetemplate</strong>(organization_id)</li>
+        <li><strong>organization_openinghours</strong>(organization_id)</li>
+        <li><strong>organization_organizationuser</strong>(organization_id)</li>
+        <li><strong>organization_organization</strong>(parent_id)</li>
+        <li><strong>restaurant_client</strong>(organization_id)</li>
+        <li><strong>restaurant_menu</strong>(organization_id)</li>
+        <li><strong>restaurant_promotion</strong>(organization_id)</li>
+        <li><strong>restaurant_reservation</strong>(organization_id)</li>
+        <li><strong>restaurant_restaurantdocument</strong>(organization_id)</li>
+        <li><strong>restaurant_restauranttable</strong>(organization_id)</li>
+        <li><strong>restaurant_reward</strong>(organization_id)</li>
+        <li><strong>restaurant_saleslevel</strong>(organization_id)</li>
+        <li><strong>restaurant_whatsappbot</strong>(organization_id)</li>
+      </ul>
+      <h4 id="organization_organizationuser" class="mt-5">
+        organization_organizationuser
+      </h4>
+      <p>Stores association between organizations and users.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+        <li>user_id → <strong>authentication_user</strong>(id)</li>
+      </ul>
+      <h4 id="organization_template" class="mt-5">organization_template</h4>
+      <p>Stores general templates for organizations.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_sid</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content_variables</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 id="restaurant_client" class="mt-5">restaurant_client</h4>
+      <p>
+        Stores information about restaurant clients including contact details,
+        preferences, and notes.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>avatar</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>character varying(128)</td>
+            </tr>
+            <tr>
+              <td>whatsapp_number</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>source</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>date_of_birth</td>
+              <td>date</td>
+            </tr>
+            <tr>
+              <td>anniversary_date</td>
+              <td>date</td>
+            </tr>
+            <tr>
+              <td>last_visit</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>preferences</td>
+              <td>character varying(255)[]</td>
+            </tr>
+            <tr>
+              <td>allergens</td>
+              <td>character varying(255)[]</td>
+            </tr>
+            <tr>
+              <td>special_notes</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>thread_id</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_clientmessage</strong>(client_id)</li>
+        <li><strong>restaurant_promotionsentlog</strong>(client_id)</li>
+        <li><strong>restaurant_reservation</strong>(client_id)</li>
+      </ul>
+      <h4 id="restaurant_clientmessage" class="mt-5">
+        restaurant_clientmessage
+      </h4>
+      <p>Stores messages sent between the restaurant and clients.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>role</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>message</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>media_url</td>
+              <td>character varying(200)</td>
+            </tr>
+            <tr>
+              <td>sent_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>client_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_id</td>
+              <td>bigint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>client_id → <strong>restaurant_client</strong>(id)</li>
+        <li>reservation_id → <strong>restaurant_reservation</strong>(id)</li>
+      </ul>
+      <h4 id="restaurant_menu" class="mt-5">restaurant_menu</h4>
+      <p>
+        Stores menu items offered by the restaurant, including price,
+        ingredients, and allergens.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>image</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>description</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>price</td>
+              <td>numeric(10</td>
+            </tr>
+            <tr>
+              <td>ingredients</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>category</td>
+              <td>character varying(30) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>classification</td>
+              <td>character varying(30) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td>character varying(30) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>allergens</td>
+              <td>character varying(255)[]</td>
+            </tr>
+            <tr>
+              <td>macronutrients</td>
+              <td>jsonb</td>
+            </tr>
+            <tr>
+              <td>upselling_priority</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>enable_upselling</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li>
+          <strong>restaurant_menu_recommended_combinations</strong
+          >(from_menu_id)
+        </li>
+        <li>
+          <strong>restaurant_menu_recommended_combinations</strong>(to_menu_id)
+        </li>
+        <li><strong>restaurant_promotiontrigger_menus</strong>(menu_id)</li>
+        <li><strong>restaurant_reservation_menus</strong>(menu_id)</li>
+      </ul>
+      <h4 id="restaurant_menu_recommended_combinations" class="mt-5">
+        restaurant_menu_recommended_combinations
+      </h4>
+      <p>Stores recommended combinations between menu items.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>from_menu_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>to_menu_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>from_menu_id → <strong>restaurant_menu</strong>(id)</li>
+        <li>to_menu_id → <strong>restaurant_menu</strong>(id)</li>
+      </ul>
+      <h4 id="restaurant_promotion" class="mt-5">restaurant_promotion</h4>
+      <p>
+        Stores promotional campaigns, linking triggers, rewards and message
+        templates.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>valid_from</td>
+              <td>date NOT NULL</td>
+            </tr>
+            <tr>
+              <td>valid_to</td>
+              <td>date NOT NULL</td>
+            </tr>
+            <tr>
+              <td>is_enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>message_template_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>trigger_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reward_id</td>
+              <td>bigint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          message_template_id →
+          <strong>organization_messagetemplate</strong>(id)
+        </li>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+        <li>reward_id → <strong>restaurant_reward</strong>(id)</li>
+        <li>trigger_id → <strong>restaurant_promotiontrigger</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_promotionsentlog</strong>(promotion_id)</li>
+      </ul>
+      <h4 id="restaurant_promotionsentlog" class="mt-5">
+        restaurant_promotionsentlog
+      </h4>
+      <p>
+        Stores promotional campaigns, linking triggers, rewards and message
+        templates.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>sent_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>client_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>message_template_id</td>
+              <td>bigint</td>
+            </tr>
+            <tr>
+              <td>promotion_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>client_id → <strong>restaurant_client</strong>(id)</li>
+        <li>
+          message_template_id →
+          <strong>organization_messagetemplate</strong>(id)
+        </li>
+        <li>promotion_id → <strong>restaurant_promotion</strong>(id)</li>
+      </ul>
+      <h4 id="restaurant_promotiontrigger" class="mt-5">
+        restaurant_promotiontrigger
+      </h4>
+      <p>
+        Defines triggers that determine when a promotion should be sent (e.g.,
+        birthday, inactivity).
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>yearly_category</td>
+              <td>character varying(20)</td>
+            </tr>
+            <tr>
+              <td>days_before</td>
+              <td>smallint</td>
+            </tr>
+            <tr>
+              <td>min_count</td>
+              <td>integer</td>
+            </tr>
+            <tr>
+              <td>inactivity_days</td>
+              <td>integer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Referenced By</h5>
+      <ul>
+        <li>
+          <strong>restaurant_promotiontrigger_menus</strong
+          >(promotiontrigger_id)
+        </li>
+        <li><strong>restaurant_promotion</strong>(trigger_id)</li>
+      </ul>
+      <h4 id="restaurant_promotiontrigger_menus" class="mt-5">
+        restaurant_promotiontrigger_menus
+      </h4>
+      <p>
+        Associative table linking promotion triggers to specific menu items.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>promotiontrigger_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>menu_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>menu_id → <strong>restaurant_menu</strong>(id)</li>
+        <li>
+          promotiontrigger_id → <strong>restaurant_promotiontrigger</strong>(id)
+        </li>
+      </ul>
+      <h4 id="restaurant_reservation" class="mt-5">restaurant_reservation</h4>
+      <p>
+        Stores reservations made by clients, including details like reservation
+        time, guest count, and table.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_name</td>
+              <td>character varying(255)</td>
+            </tr>
+            <tr>
+              <td>reservation_phone</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>reservation_date</td>
+              <td>date NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_time</td>
+              <td>time without time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_end_time</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>reservation_reason</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>guests</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>notes</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>reservation_status</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>cancelled_by</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>cancellation_reason</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>booking_reminder_sent</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>booking_reminder_sent_at</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>client_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>table_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>promo_code_id</td>
+              <td>bigint</td>
+            </tr>
+            <tr>
+              <td>sales_level_reward_id</td>
+              <td>bigint</td>
+            </tr>
+            <tr>
+              <td>auto_reminder_at</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>auto_reminder_sent</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>client_id → <strong>restaurant_client</strong>(id)</li>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+        <li>promo_code_id → <strong>restaurant_reward</strong>(id)</li>
+        <li>sales_level_reward_id → <strong>restaurant_reward</strong>(id)</li>
+        <li>table_id → <strong>restaurant_restauranttable</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_clientmessage</strong>(reservation_id)</li>
+        <li><strong>restaurant_reservation_menus</strong>(reservation_id)</li>
+      </ul>
+      <h4 id="restaurant_reservation_menus" class="mt-5">
+        restaurant_reservation_menus
+      </h4>
+      <p>
+        Associative table linking reservations to menu items that were part of
+        the booking.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reservation_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>menu_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>menu_id → <strong>restaurant_menu</strong>(id)</li>
+        <li>reservation_id → <strong>restaurant_reservation</strong>(id)</li>
+      </ul>
+      <h4 id="restaurant_restaurantdocument" class="mt-5">
+        restaurant_restaurantdocument
+      </h4>
+      <p>
+        Stores documents related to the restaurant, such as contracts or
+        permits.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>document_type</td>
+              <td>character varying(10) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>file</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h4 id="restaurant_restauranttable" class="mt-5">
+        restaurant_restauranttable
+      </h4>
+      <p>
+        Stores information about the individual tables in the restaurant
+        including their capacity and status.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>capacity</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>category</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>position</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_reservation</strong>(table_id)</li>
+      </ul>
+      <h4 id="restaurant_reward" class="mt-5">restaurant_reward</h4>
+      <p>
+        Defines rewards such as promo codes or discounts that can be associated
+        with promotions or sales levels.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>label</td>
+              <td>character varying(24) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>promo_code</td>
+              <td>character varying(100)</td>
+            </tr>
+            <tr>
+              <td>reward_category</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_promotion</strong>(reward_id)</li>
+        <li><strong>restaurant_reservation</strong>(promo_code_id)</li>
+        <li><strong>restaurant_reservation</strong>(sales_level_reward_id)</li>
+        <li><strong>restaurant_saleslevel</strong>(reward_id)</li>
+      </ul>
+      <h4 id="restaurant_saleslevel" class="mt-5">restaurant_saleslevel</h4>
+      <p>
+        Defines sales levels which can be used to categorize clients and
+        customize rewards.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>level</td>
+              <td>smallint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>personalization_enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reward_enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>priority_dish_enabled</td>
+              <td>boolean NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>reward_id</td>
+              <td>bigint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+        <li>reward_id → <strong>restaurant_reward</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>restaurant_whatsappbot</strong>(sales_level_id)</li>
+      </ul>
+      <h4 id="restaurant_whatsappbot" class="mt-5">restaurant_whatsappbot</h4>
+      <p>
+        Stores configuration for the restaurant’s WhatsApp chatbot used for
+        automated communication.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>uid</td>
+              <td>uuid NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>chatbot_name</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>chatbot_language</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>chatbot_tone</td>
+              <td>character varying(20) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>chatbot_custom_tone</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>max_response_length</td>
+              <td>integer NOT NULL</td>
+            </tr>
+            <tr>
+              <td>openai_key</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>assistant_id</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>twilio_sid</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>twilio_auth_token</td>
+              <td>jsonb NOT NULL</td>
+            </tr>
+            <tr>
+              <td>twilio_number</td>
+              <td>character varying(100) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>hashed_key</td>
+              <td>character varying(500) NOT NULL</td>
+            </tr>
+            <tr>
+              <td>organization_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>sales_level_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          organization_id → <strong>organization_organization</strong>(id)
+        </li>
+        <li>sales_level_id → <strong>restaurant_saleslevel</strong>(id)</li>
+      </ul>
+      <h4 id="token_blacklist_blacklistedtoken" class="mt-5">
+        token_blacklist_blacklistedtoken
+      </h4>
+      <p>Stores tokens that have been blacklisted for security reasons.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>blacklisted_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>token_id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>
+          token_id → <strong>token_blacklist_outstandingtoken</strong>(id)
+        </li>
+      </ul>
+      <h4 id="token_blacklist_outstandingtoken" class="mt-5">
+        token_blacklist_outstandingtoken
+      </h4>
+      <p>Stores tokens that have been blacklisted for security reasons.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>bigint NOT NULL</td>
+            </tr>
+            <tr>
+              <td>token</td>
+              <td>text NOT NULL</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>timestamp with time zone</td>
+            </tr>
+            <tr>
+              <td>expires_at</td>
+              <td>timestamp with time zone NOT NULL</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>bigint</td>
+            </tr>
+            <tr>
+              <td>jti</td>
+              <td>character varying(255) NOT NULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Foreign Keys</h5>
+      <ul>
+        <li>user_id → <strong>authentication_user</strong>(id)</li>
+      </ul>
+      <h5>Referenced By</h5>
+      <ul>
+        <li><strong>token_blacklist_blacklistedtoken</strong>(token_id)</li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

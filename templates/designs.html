@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Design Principles &amp; UI/UX</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons for simple glyphs -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        /* Custom styles to differentiate this page from the technology overview */
+        body {
+            /* Soft gradient background for a modern feel */
+            /* background: linear-gradient(135deg, #f0f4ff, #faf3ff); */
+            color: #333;
+            padding-top: 70px;
+        }
+        .hero {
+            background: linear-gradient(135deg, #7448c4, #6154ef);
+            color: #fff;
+            padding: 4rem 1rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin-bottom: 3rem;
+        }
+        .hero h1 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: #5135a9;
+        }
+        .card-icon {
+            font-size: 2rem;
+            color: #6154ef;
+        }
+        .design-feature {
+            margin-bottom: 1.5rem;
+        }
+        /* Responsive typography */
+        @media (max-width: 575.98px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            Chefbot Technical Documentation
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('database_schema') }}">Database Schema</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('technologies') }}">Technologies</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('designs') }}">Designs</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('gpt_instructions') }}">GPT Instructions</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <!-- Hero Section -->
+        <div class="mb-5 text-center">
+            <h1 class="mb-3">Design Principles &amp; UX</h1>
+            <p class="lead mb-0" style="line-height: 25px;">Creating an intuitive, responsive and efficient CRM starts with a strong design philosophy. Discover how we crafted our interface for clarity and ease of use.</p>
+        </div>
+
+        <!-- Design Philosophy -->
+        <section id="philosophy">
+            <h2 class="section-title">Our Design Philosophy</h2>
+            <p style="line-height: 25px;">We believe that great design for a customer relationship management (CRM) system should reduce complexity and empower users to get work done efficiently. Our interface focuses on clarity, responsiveness and accessibility, ensuring that every feature is discoverable and that users can navigate the system without friction. Each screen is designed with a <strong>mobile‑first</strong> mindset, ensuring that it functions well on phones, tablets, laptops and desktops.</p>
+        </section>
+        
+
+        <!-- Design Stack -->
+        <section id="stack">
+            <h2 class="section-title">Design Stack</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Next.js -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-2"><i class="bi bi-lightning-charge"></i></div>
+                            <h5 class="card-title">Next.js</h5>
+                            <p class="card-text" style="line-height: 25px;">We built the front‑end with Next.js, a React framework that supports server‑side rendering and static generation. This architecture delivers pages quickly and improves SEO, while enabling a modular, component‑based UI.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tailwind CSS -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-2"><i class="bi bi-palette-fill"></i></div>
+                            <h5 class="card-title">Tailwind CSS</h5>
+                            <p class="card-text" style="line-height: 25px;">Our styling is powered by Tailwind CSS, a utility‑first framework that allows us to build bespoke designs directly in markup. It helps us create consistent, responsive layouts with minimal custom CSS.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- TypeScript -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <div class="card-icon mb-2"><i class="bi bi-code-square"></i></div>
+                            <h5 class="card-title">TypeScript</h5>
+                            <p class="card-text" style="line-height: 25px;">Instead of jQuery, we use TypeScript alongside React. TypeScript’s static type system catches many errors at build time and makes our codebase easier to maintain, leading to a more robust application.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Friendly Features -->
+        <section id="features">
+            <h2 class="section-title">User‑Friendly Features</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="design-feature">
+                        <h5><i class="bi bi-phone" aria-hidden="true"></i> Responsive Layout</h5>
+                        <p style="line-height: 25px;">Our interface is designed to adapt gracefully across devices. Whether on a phone, tablet, laptop or desktop, key controls are always accessible and content reflows intelligently so that nothing feels cramped or hidden. Using a modern responsive framework helps achieve this mobile‑first design.</p>
+                    </div>
+                    <div class="design-feature">
+                        <h5><i class="bi bi-list-check" aria-hidden="true"></i> Intuitive Navigation</h5>
+                        <p style="line-height: 25px;">A consistent sidebar and top navigation make it easy to jump between orders, customers, inventory and reports. Clear labels and icons reduce cognitive load, helping staff find what they need without lengthy training.</p>
+                    </div>
+                    <div class="design-feature">
+                        <h5><i class="bi bi-star" aria-hidden="true"></i> Clean &amp; Minimalistic</h5>
+                        <p style="line-height: 25px;">We deliberately avoid clutter. Interfaces show only the information necessary for the current task; secondary details are tucked away in collapsible panels or modals. This minimal approach helps users stay focused.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="design-feature">
+                        <h5><i class="bi bi-speedometer2" aria-hidden="true"></i> Performance‑Driven</h5>
+                        <p style="line-height: 25px;">By leveraging server‑side rendering and static generation in Next.js, pages load swiftly and transitions feel instantaneous. TypeScript and modern React features reduce runtime errors, ensuring the application remains smooth under load.</p>
+                    </div>
+                    <div class="design-feature">
+                        <h5><i class="bi bi-universal-access" aria-hidden="true"></i> Accessible by Design</h5>
+                        <p style="line-height: 25px;">High contrast colours, sufficient font sizes and ARIA labels ensure our application is usable by everyone. Keyboard navigation and screen‑reader friendly components help us comply with accessibility guidelines.</p>
+                    </div>
+                    <div class="design-feature">
+                        <h5><i class="bi bi-shield-check" aria-hidden="true"></i> Privacy &amp; Security</h5>
+                        <p style="line-height: 25px;">Forms use secure inputs, passwords are handled by our backend, and sensitive operations require confirmation. We adhere to GDPR principles like data minimisation and transparency, protecting our customers’ privacy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modern Front‑End Technologies -->
+        <section id="modern-tech" class="mt-5 mb-5">
+            <h2 class="section-title">Modern Front‑End Technologies</h2>
+            <p style="line-height: 25px;">The choice of Next.js, Tailwind CSS and TypeScript isn’t arbitrary. These tools work together to deliver a cohesive design system and a smooth developer experience:</p>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                    <strong>Next.js:</strong> Its file‑based routing and hybrid rendering (server‑side and static) mean pages render quickly and search engines can index content easily. Built‑in performance optimisation, API routes and easy deployment simplify full‑stack development.
+                </li>
+                <li class="list-group-item">
+                    <strong>Tailwind CSS:</strong> The utility‑first approach accelerates prototyping and enforces consistency. Tailwind’s responsive classes make it straightforward to design layouts that respond gracefully to any screen size.
+                </li>
+                <li class="list-group-item">
+                    <strong>TypeScript:</strong> By adding static typing to JavaScript, TypeScript helps catch mistakes during development and improves tooling and auto‑completion support. This leads to more maintainable and performant code.
+                </li>
+            </ul>
+           
+        </section>
+
+
+    </main>
+
+    <!-- Bootstrap JS (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
