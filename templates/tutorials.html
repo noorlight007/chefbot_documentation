@@ -30,6 +30,10 @@
             color: #999;
             height: 300px;
         }
+        .content {
+            height: 100vh;        /* fill screen */
+            overflow-y: auto;     /* only this scrolls */
+        }
     </style>
 </head>
 <body>
@@ -64,6 +68,10 @@
                 </li>
 
                 <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('sales_level') }}">Sales Levels</a>
+                </li>
+
+                <li class="nav-item">
                 <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
                 </li>
             </ul>
@@ -77,27 +85,61 @@
             <nav class="col-md-3 mb-4 sidebar" id="sidebarMenu">
                 <div class="list-group">
                     <a href="#dashboard" class="list-group-item list-group-item-action">Dashboard</a>
+
+                    <!-- Restaurant -->
                     <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#restaurantMenu" role="button" aria-expanded="false" aria-controls="restaurantMenu">Restaurant <i class="bi bi-caret-down-fill float-end"></i></a>
                     <div class="collapse" id="restaurantMenu">
                         <a href="#restaurant-list" class="list-group-item list-group-item-action ps-4">List of Restaurant</a>
                         <a href="#restaurant-create" class="list-group-item list-group-item-action ps-4">Create a new Restaurant</a>
                         <a href="#restaurant-update" class="list-group-item list-group-item-action ps-4">Update a Restaurant</a>
                         <a href="#restaurant-delete" class="list-group-item list-group-item-action ps-4">Delete a Restaurant</a>
+                        <a href="#menu-list" class="list-group-item list-group-item-action ps-4">List of Menu items</a>
+                        <a href="#menu-create" class="list-group-item list-group-item-action ps-4">Create a Menu item</a>
+                        <a href="#menu-update" class="list-group-item list-group-item-action ps-4">Update a Menu item</a>
+                        <a href="#menu-delete" class="list-group-item list-group-item-action ps-4">Delete a Menu item</a>
                         <a href="#table-list" class="list-group-item list-group-item-action ps-4">List of tables</a>
                         <a href="#table-create" class="list-group-item list-group-item-action ps-4">Create a table</a>
                         <a href="#table-update" class="list-group-item list-group-item-action ps-4">Update a table</a>
                         <a href="#table-delete" class="list-group-item list-group-item-action ps-4">Delete a table</a>
                     </div>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#chatbotMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">Chatbot <i class="bi bi-caret-down-fill float-end"></i></a>
+
+                    <!-- Reservation -->
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#reservationMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">Reservations <i class="bi bi-caret-down-fill float-end"></i></a>
+                    <div class="collapse" id="reservationMenu">
+                        <a href="#reservation-list" class="list-group-item list-group-item-action ps-4">List of Reservations</a>
+                        <a href="#reservation-create" class="list-group-item list-group-item-action ps-4">Create a new Reservation</a>
+                        <a href="#reservation-update" class="list-group-item list-group-item-action ps-4">Update a Reservation</a>
+                        <a href="#reservation-delete" class="list-group-item list-group-item-action ps-4">Delete a Reservation</a>
+                    </div>
+
+                    <!-- Promotions -->
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#promotionMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">Promotions <i class="bi bi-caret-down-fill float-end"></i></a>
+                    <div class="collapse" id="promotionMenu">
+                        <a href="#promotion-details" class="list-group-item list-group-item-action ps-4">How Promotion works</a>
+                        <a href="#promotion-list" class="list-group-item list-group-item-action ps-4">List of Promotions</a>
+                        <a href="#promotion-create" class="list-group-item list-group-item-action ps-4">Create a new Promotion</a>
+                        <a href="#promotion-update" class="list-group-item list-group-item-action ps-4">Update a Promotion</a>
+                        <a href="#promotion-delete" class="list-group-item list-group-item-action ps-4">Delete a Promotion</a>
+                    </div>
+
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#chatbotMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">Chatbots <i class="bi bi-caret-down-fill float-end"></i></a>
                     <div class="collapse" id="chatbotMenu">
-                        <a href="#chatbot-list" class="list-group-item list-group-item-action ps-4">List of Chatbot</a>
-                        <a href="#chatbot-create" class="list-group-item list-group-item-action ps-4">Create a new Chatbot</a>
+                        <a href="#chatbot-details" class="list-group-item list-group-item-action ps-4">How WhatsApp chatbot works</a>
+                        <a href="#chatbot-list" class="list-group-item list-group-item-action ps-4">List of WhatsApp Chatbots</a>
+                        <a href="#chatbot-create" class="list-group-item list-group-item-action ps-4">Create a new WhatsApp Chatbot</a>
+                        <a href="#chatbot-sales-level" class="list-group-item list-group-item-action ps-4">Update Sales level</a>
+                    </div>
+
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">General Features <i class="bi bi-caret-down-fill float-end"></i></a>
+                    <div class="collapse" id="generalMenu">
+                        <a href="#profile_update" class="list-group-item list-group-item-action ps-4">Update your profile</a>
+                        <a href="#chatbot-list" class="list-group-item list-group-item-action ps-4">Switch Language</a>
                     </div>
                 </div>
             </nav>
 
             <!-- Content Area -->
-            <main class="col-md-9">
+            <main class="col-md-9 content">
                 <!-- Dashboard Section -->
                 <section id="dashboard" class="mb-5">
                     <h2>Dashboard</h2>
@@ -138,17 +180,97 @@
                     </div>
                 </section>
 
-                <!-- Chatbot Sections -->
-                <section id="chatbot-list" class="mb-5">
-                    <h2>Chatbot – List of Chatbot</h2>
+                
+                <section id="restaurant-delete" class="mb-5">
+                    <h2>Restaurant – Delete a Restaurant</h2>
                     <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
-                    <div class="video-placeholder rounded">Video coming soon</div>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/update_rest.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
                 </section>
-                <section id="chatbot-create" class="mb-5">
-                    <h2>Chatbot – Create a new Chatbot</h2>
-                    <p class="mb-3">This tutorial walks through setting up a new chatbot, configuring its channels and integrating it with restaurant data.</p>
-                    <div class="video-placeholder rounded">Video coming soon</div>
+
+                <!-- Menu Sections -->
+                <section id="menu-list" class="mb-5">
+                    <h2>Menu - Menu Items List</h2>
+                    <p class="mb-3">List of Menu items</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/menu/menu_list.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
                 </section>
+                <section id="menu-create" class="mb-5">
+                    <h2>Menu - Create a Menu item</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/menu/menu_creation.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="menu-update" class="mb-5">
+                    <h2>Menu - Update a Menu item</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/menu/menu_update.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="menu-delete" class="mb-5">
+                    <h2>Menu - Delete a Menu item</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/menu/menu_delete.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+
+
+                <!-- table Sections -->
+                <section id="table-list" class="mb-5">
+                    <h2>Tables - Table Items List</h2>
+                    <p class="mb-3">List of Tables</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/table/list_table.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="menu-create" class="mb-5">
+                    <h2>Tables - Create a table record</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/table/new_table.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="menu-update" class="mb-5">
+                    <h2>Tables - Update a Table record</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/table/update_table.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="menu-delete" class="mb-5">
+                    <h2>Tables - Delete a Table recprd</h2>
+                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/table/delete_table.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                
+
+
+
             </main>
         </div>
     </div>

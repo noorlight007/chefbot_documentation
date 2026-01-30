@@ -23,6 +23,11 @@ def designs():
 def gpt_instructions():
     return render_template("gpt_instructions.html")
 
+# sales_level
+@app.route("/sales-level")
+def sales_level():
+    return render_template("sales_level.html")
+
 @app.route("/tutorials")
 def tutorials():
     return render_template("tutorials.html")

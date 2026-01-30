@@ -85,6 +85,10 @@
                 </li>
 
                 <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('sales_level') }}">Sales Levels</a>
+                </li>
+
+                <li class="nav-item">
                 <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
                 </li>
             </ul>
@@ -93,7 +97,7 @@
     </nav>
 
 
-    <main class="container">
+    <main class="container mb-5">
         <!-- Hero Section -->
         <div class="hero shadow-sm">
             <h1>Welcome to Our Restaurant CRM</h1>
@@ -112,7 +116,7 @@
                             <h5 class="card-title">Database Schema</h5>
                             <p class="card-text">Visualise how tables and relationships come together. See the data model underpinning our restaurant &amp; CRM system.</p>
                             <div class="mt-auto">
-                                <a href="index.html" class="btn btn-primary btn-sm">View Schema</a>
+                                <a href="{{ url_for('database_schema') }}" class="btn btn-primary btn-sm">View Schema</a>
                             </div>
                         </div>
                     </div>
@@ -125,7 +129,7 @@
                             <h5 class="card-title">Technologies</h5>
                             <p class="card-text">Explore the frameworks, databases and services that power our platform and learn why we chose them.</p>
                             <div class="mt-auto">
-                                <a href="technologies.html" class="btn btn-primary btn-sm">Our Stack</a>
+                                <a href="{{ url_for('technologies') }}" class="btn btn-primary btn-sm">Our Stack</a>
                             </div>
                         </div>
                     </div>
@@ -138,7 +142,7 @@
                             <h5 class="card-title">Designs</h5>
                             <p class="card-text">Discover our user‑centred design philosophy, see how we built a clean and accessible interface and meet our design tools.</p>
                             <div class="mt-auto">
-                                <a href="designs.html" class="btn btn-primary btn-sm">Design Insights</a>
+                                <a href="{{ url_for('designs') }}" class="btn btn-primary btn-sm">Design Insights</a>
                             </div>
                         </div>
                     </div>
@@ -151,7 +155,20 @@
                             <h5 class="card-title">GPT Instructions</h5>
                             <p class="card-text">Learn how we harness OpenAI’s capabilities to automate tasks and delight customers with conversational experiences.</p>
                             <div class="mt-auto">
-                                <a href="gpt.html" class="btn btn-primary btn-sm">AI Guide</a>
+                                <a href="{{ url_for('gpt_instructions') }}" class="btn btn-primary btn-sm">AI Guide</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales level Card -->
+                <div class="col">
+                    <div class="card h-100 text-center p-3 shadow-sm border-0">
+                        <div class="card-body d-flex flex-column">
+                            <div class="card-icon"><i class="bi bi-chat-dots-fill"></i></div>
+                            <h5 class="card-title">Sales Levels</h5>
+                            <p class="card-text">The difference between each Sales Levels along with their conversation samples.</p>
+                            <div class="mt-auto">
+                                <a href="{{ url_for('sales_level') }}" class="btn btn-primary btn-sm">Check Explanations</a>
                             </div>
                         </div>
                     </div>
@@ -164,7 +181,7 @@
                             <h5 class="card-title">Tutorials</h5>
                             <p class="card-text">Watch step‑by‑step video guides to master each feature—from dashboards to chatbot configuration.</p>
                             <div class="mt-auto">
-                                <a href="videos.html" class="btn btn-primary btn-sm">Watch Videos</a>
+                                <a href="{{ url_for('tutorials') }}" class="btn btn-primary btn-sm">Watch Videos</a>
                             </div>
                         </div>
                     </div>

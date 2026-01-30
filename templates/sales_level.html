@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sales Levels 1–5 Comparison</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body { background: #f8f9fa; padding-top: 70px;}
+      .level-badge { font-weight: 600; letter-spacing: .2px; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      .chat {
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.08);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .msg { display: flex; gap: 10px; margin: 10px 0; }
+      .bubble {
+        padding: 10px 12px;
+        border-radius: 14px;
+        max-width: 820px;
+        line-height: 1.35;
+        border: 1px solid rgba(0,0,0,.08);
+      }
+      .user .bubble { background: #e9f2ff; margin-left: auto; }
+      .agent .bubble { background: #f6f7f9; }
+      .tag {
+        font-size: .75rem;
+        opacity: .8;
+        margin-top: 4px;
+      }
+      .pill {
+        display: inline-block;
+        padding: .2rem .55rem;
+        border-radius: 999px;
+        font-size: .8rem;
+        border: 1px solid rgba(0,0,0,.12);
+        background: rgba(255,255,255,.7);
+      }
+      .small-note { font-size: .92rem; color: rgba(0,0,0,.7); }
+      .sticky-top-2 { position: sticky; top: 0; z-index: 1020; }
+      .kbd-like {
+        background: #111827;
+        color: #fff;
+        border-radius: 8px;
+        padding: 2px 8px;
+        font-size: .85rem;
+      }
+      .rule-list li { margin-bottom: .35rem; }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            Chefbot Technical Documentation
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('database_schema') }}">Database Schema</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('technologies') }}">Technologies</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('designs') }}">Designs</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('gpt_instructions') }}">GPT Instructions</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('sales_level') }}">Sales Levels</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link border border-info p-2" href="{{ url_for('tutorials') }}">Tutorials</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-4 bg-white border-bottom">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+            <h1 class="h3 mb-1">Sales Levels 1–5 — What changes?</h1>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <p class="mb-0 text-muted">
+              The difference between each Sales Levels along with their conversation samples.
+            </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container py-4">
+      <!-- Quick overview -->
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 mb-2">At a glance</h2>
+              <p class="small-note mb-3">
+                Levels build on each other.
+              </p>
+
+              <div class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 120px;">Level</th>
+                      <th>What it adds on top</th>
+                      <th style="width: 210px;">Best for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge text-bg-secondary level-badge">Level 1</span></td>
+                      <td>Core flows (reservation/menu/info/manage), allergy safety, reschedule-before-cancel, PDF rules.</td>
+                      <td>Reliable baseline support</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge text-bg-primary level-badge">Level 2</span></td>
+                      <td><strong>Reward messaging</strong> in greeting + reminders after booking/reschedule/closing.</td>
+                      <td>Loyalty / retention</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge text-bg-success level-badge">Level 3</span></td>
+                      <td><strong>Priority menu upsell</strong> (premium picks) when menu is requested.</td>
+                      <td>Upsell without personalization</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge text-bg-warning level-badge">Level 4</span></td>
+                      <td><strong>Personalized recs</strong> before adding items to an existing reservation + priority dishes (if enabled).</td>
+                      <td>Higher conversion on add-ons</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge text-bg-dark level-badge">Level 5</span></td>
+                      <td><strong>First-conversation promotions question</strong> + accept natural dates exactly + priority/personalized logic combined (if enabled).</td>
+                      <td>Most “salesy” & dynamic</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="h6 mb-2">How to use this page</h2>
+              <ul class="rule-list mb-3">
+                <li>Use the tabs to switch between levels.</li>
+                <li>Each tab shows: “Rules that matter” + a mini conversation sample.</li>
+                <li>Samples intentionally highlight what changes between levels.</li>
+              </ul>
+
+              <div class="alert alert-info mb-0">
+                <div class="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <strong>Placeholder variables</strong>
+                    <div class="small-note mt-1">
+                      Replace <span class="kbd-like">{restaurant_name}</span>, <span class="kbd-like">{currency}</span>,
+                      <span class="kbd-like">{reward_label}</span>, <span class="kbd-like">{reward_type}</span>.
+                    </div>
+                  </div>
+                  <span class="badge text-bg-primary text-white">Tip</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-white sticky-top-2">
+          <ul class="nav nav-tabs card-header-tabs" id="levelsTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="l1-tab" data-bs-toggle="tab" data-bs-target="#l1" type="button" role="tab">
+                Level 1
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="l2-tab" data-bs-toggle="tab" data-bs-target="#l2" type="button" role="tab">
+                Level 2
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="l3-tab" data-bs-toggle="tab" data-bs-target="#l3" type="button" role="tab">
+                Level 3
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="l4-tab" data-bs-toggle="tab" data-bs-target="#l4" type="button" role="tab">
+                Level 4
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="l5-tab" data-bs-toggle="tab" data-bs-target="#l5" type="button" role="tab">
+                Level 5
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-body">
+          <div class="tab-content" id="levelsTabContent">
+
+            <!-- LEVEL 1 -->
+            <section class="tab-pane fade show active" id="l1" role="tabpanel" aria-labelledby="l1-tab">
+              <div class="row g-4">
+                <div class="col-12 col-lg-5">
+                  <h3 class="h5">Level 1: Baseline support</h3>
+                  <p class="text-muted mb-3">
+                    Clean, helpful service with structured reservation and menu flows.
+                  </p>
+
+                  <div class="list-group mb-3">
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Greeting</div>
+                      <div class="small-note">Friendly, no rewards, no promos question.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Reservation workflow</div>
+                      <div class="small-note">Name → contact → date/time/party → confirm → availability → occasion → promo code → allergies/preferences → book.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Menu PDF rule</div>
+                      <div class="small-note">Send only if available/successful; otherwise guide category browsing (don’t mention PDF).</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Safety</div>
+                      <div class="small-note">Don’t invent allergen/nutrition/protein; use tools. Offer reschedule before cancel.</div>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-light border mb-0">
+                    <strong>What Level 1 sounds like:</strong>
+                    <div class="small-note mt-1">Warm, short chunks, line breaks before questions.</div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                  <h3 class="h5 mb-3">Conversation sample</h3>
+                  <div class="chat">
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Hi! Welcome to <span class="mono">{restaurant_name}</span>! How can I help today?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">
+                        I want to book a table for tomorrow night.
+                      </div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Sure — I can help with that.<br /><br />
+                        Could you please tell me the name of the person the reservation is for?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Samira</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Thanks, Samira.<br /><br />
+                        What’s the best contact for WhatsApp (or do you prefer a different number/method)?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">WhatsApp is fine — 01700xxxxxx. Tomorrow 8 pm, 4 people.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Great.<br /><br />
+                        <strong>Tomorrow at 8:00 pm for 4</strong>, correct?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Yes.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Perfect — I’ll check availability now.<br /><br />
+                        Any special occasion?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">No.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Got it.<br /><br />
+                        Do you have any promo code you’d like to use?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">No promo code.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Thanks.<br /><br />
+                        Do you have any dietary preferences or food allergies we should know about?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- LEVEL 2 -->
+            <section class="tab-pane fade" id="l2" role="tabpanel" aria-labelledby="l2-tab">
+              <div class="row g-4">
+                <div class="col-12 col-lg-5">
+                  <h3 class="h5">Level 2: Rewards added</h3>
+                  <p class="text-muted mb-3">
+                    Same as Level 1, but the greeting and post-booking messaging highlight rewards (when available).
+                  </p>
+
+                  <div class="list-group mb-3">
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Mandatory reward in greeting</div>
+                      <div class="small-note">
+                        “GREAT NEWS — you have a <span class="mono">{reward_label}</span> on <span class="mono">{reward_type}</span>.”
+                      </div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Reward reminders</div>
+                      <div class="small-note">After booking confirmation + reschedule confirmations + closings.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Everything else</div>
+                      <div class="small-note">Reservation flow, menu PDF rule, allergy safety are unchanged from Level 1.</div>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-warning mb-0">
+                    <strong>Key difference:</strong>
+                    <div class="small-note mt-1">
+                      Same behavior, just reward messaging sprinkled in at specific points.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                  <h3 class="h5 mb-3">Conversation sample</h3>
+                  <div class="chat">
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Welcome to <span class="mono">{restaurant_name}</span>! <strong>GREAT NEWS</strong> — you have a
+                        <span class="mono">{reward_label}</span> on <span class="mono">{reward_type}</span>.<br /><br />
+                        How can I help today?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Can you book a table for Friday at 7 for 2?</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Absolutely.<br /><br />
+                        Could you please tell me the name of the person the reservation is for?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Imran</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Thanks, Imran.<br /><br />
+                        WhatsApp contact is okay, or would you like a different number/method?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">WhatsApp is fine. 01811xxxxxx.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Great.<br /><br />
+                        Friday at 7:00 pm for 2, correct?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Correct.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Perfect — I’ll check availability now.<br /><br />
+                        Any special occasion?
+                      </div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Do you have any promo code you’d like to use?<br /><br />
+                        And do you have any dietary preferences or food allergies we should know about?
+                      </div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        <em>(After booking confirmation)</em><br />
+                        You’re all set for Friday at 7:00 pm for 2.<br /><br />
+                        Quick reminder: you’ve got a <span class="mono">{reward_label}</span> on <span class="mono">{reward_type}</span>.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- LEVEL 3 -->
+            <section class="tab-pane fade" id="l3" role="tabpanel" aria-labelledby="l3-tab">
+              <div class="row g-4">
+                <div class="col-12 col-lg-5">
+                  <h3 class="h5">Level 3: Priority menu upsell</h3>
+                  <p class="text-muted mb-3">
+                    When someone asks for the menu, show premium/priority picks first (then offer full categories).
+                  </p>
+
+                  <div class="list-group mb-3">
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Menu request → priority picks first</div>
+                      <div class="small-note">“Here are some premium picks our guests love:” + names + prices in <span class="mono">{currency}</span>.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">PDF behavior unchanged</div>
+                      <div class="small-note">Send menu PDF only if available/successful; otherwise don’t mention it.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">No repeat calls</div>
+                      <div class="small-note">Don’t re-show priority items unless they ask for “premium/top picks” again.</div>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-success mb-0">
+                    <strong>Key difference:</strong>
+                    <div class="small-note mt-1">
+                      Level 3 is where upselling becomes the default when users ask for “menu”.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                  <h3 class="h5 mb-3">Conversation sample (menu)</h3>
+                  <div class="chat">
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Hi! Welcome to <span class="mono">{restaurant_name}</span>! How can I help today?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Can I see the menu?</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        For sure.<br /><br />
+                        Here are some premium picks our guests love:<br />
+                        • Truffle Pasta — <span class="mono">{currency}</span> 950<br />
+                        • Ribeye Steak — <span class="mono">{currency}</span> 1850<br />
+                        • Grilled Salmon — <span class="mono">{currency}</span> 1450<br /><br />
+                        Want the full menu or other categories?
+                      </div>
+                      <div class="tag">Highlights priority items first (Level 3 behavior)</div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Show me regular categories.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Got it.<br /><br />
+                        Which category would you like to browse first?
+                        <br />• Starters
+                        <br />• Mains
+                        <br />• Desserts
+                        <br />• Drinks
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- LEVEL 4 -->
+            <section class="tab-pane fade" id="l4" role="tabpanel" aria-labelledby="l4-tab">
+              <div class="row g-4">
+                <div class="col-12 col-lg-5">
+                  <h3 class="h5">Level 4: Personalized add-on recommendations</h3>
+                  <p class="text-muted mb-3">
+                    When a reservation exists and the guest wants to add items, you show personalized recommendations first.
+                  </p>
+
+                  <div class="list-group mb-3">
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Adding items → personalized recs first</div>
+                      <div class="small-note">“Based on your tastes…” + names + prices in <span class="mono">{currency}</span>.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Priority menu still exists (if enabled)</div>
+                      <div class="small-note">Menu requests can still show premium picks first, depending on settings.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Allergy check after adding</div>
+                      <div class="small-note">After any dish is added, ask about allergies (and verify ingredients as needed).</div>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-warning mb-0">
+                    <strong>Key difference:</strong>
+                    <div class="small-note mt-1">
+                      Level 4 targets upsell at the moment of commitment: “add to my reservation”.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                  <h3 class="h5 mb-3">Conversation sample (add to reservation)</h3>
+                  <div class="chat">
+                    <div class="msg user">
+                      <div class="bubble">I already booked for tonight. Can you add some dishes?</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Absolutely — I can help add items to your reservation.<br /><br />
+                        Based on your tastes, here are some recommendations:<br />
+                        • Garlic Butter Prawns — <span class="mono">{currency}</span> 780<br />
+                        • Chicken Alfredo — <span class="mono">{currency}</span> 920<br />
+                        • Chocolate Lava Cake — <span class="mono">{currency}</span> 520<br /><br />
+                        Which one would you like to add?
+                      </div>
+                      <div class="tag">Personalized recs appear before adding (Level 4 behavior)</div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Add the Garlic Butter Prawns.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Done — I’ll add Garlic Butter Prawns to your reservation.<br /><br />
+                        Any food allergies or dietary preferences I should know about?
+                      </div>
+                      <div class="tag">Allergy check triggered after adding</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- LEVEL 5 -->
+            <section class="tab-pane fade" id="l5" role="tabpanel" aria-labelledby="l5-tab">
+              <div class="row g-4">
+                <div class="col-12 col-lg-5">
+                  <h3 class="h5">Level 5: Promotions question + natural dates</h3>
+                  <p class="text-muted mb-3">
+                    First conversation asks about promotions. Also accepts natural date phrases exactly (e.g., “next Friday”).
+                  </p>
+
+                  <div class="list-group mb-3">
+                    <div class="list-group-item">
+                      <div class="fw-semibold">First conversation ONLY</div>
+                      <div class="small-note">Immediately after greeting: “We have some available promotions, do you wanna see them?”</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Natural date phrases</div>
+                      <div class="small-note">Accept “today/tomorrow/next Friday” and pass exactly to the backend.</div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="fw-semibold">Priority + personalization logic combined</div>
+                      <div class="small-note">Menu request → priority picks. Add-to-reservation → personalized recommendations (if enabled).</div>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-dark mb-0">
+                    <strong>Key difference:</strong>
+                    <div class="small-note mt-1">
+                      Level 5 adds a proactive promotions hook at the start, then continues with the normal flows.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                  <h3 class="h5 mb-3">Conversation sample (first message + natural date)</h3>
+                  <div class="chat">
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Hi! Welcome to <span class="mono">{restaurant_name}</span>!<br /><br />
+                        We have some available promotions, do you wanna see them?<br /><br />
+                        How can I help today?
+                      </div>
+                      <div class="tag">Promotions question appears only in the first conversation</div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">No thanks. Book me a table next Friday at 8 for 3.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        No problem.<br /><br />
+                        Could you please tell me the name of the person the reservation is for?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">Noor</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Thanks, Noor.<br /><br />
+                        WhatsApp contact is okay, or do you prefer a different number/method?
+                      </div>
+                    </div>
+
+                    <div class="msg user">
+                      <div class="bubble">WhatsApp is fine — 01999xxxxxx.</div>
+                    </div>
+
+                    <div class="msg agent">
+                      <div class="bubble">
+                        Great.<br /><br />
+                        <strong>Next Friday at 8:00 pm for 3</strong>, correct?
+                      </div>
+                      <div class="tag">Natural phrase “next Friday” is accepted verbatim (Level 5 behavior)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
