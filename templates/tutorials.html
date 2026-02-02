@@ -128,12 +128,14 @@
                         <a href="#chatbot-list" class="list-group-item list-group-item-action ps-4">List of WhatsApp Chatbots</a>
                         <a href="#chatbot-create" class="list-group-item list-group-item-action ps-4">Create a new WhatsApp Chatbot</a>
                         <a href="#chatbot-sales-level" class="list-group-item list-group-item-action ps-4">Update Sales level</a>
+                        <a href="#chatbot-contacts" class="list-group-item list-group-item-action ps-4">WhatsApp Contacts</a>
+                        <a href="#chatbot-message-history" class="list-group-item list-group-item-action ps-4">WhatsApp Message History</a>
                     </div>
 
                     <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="chatbotMenu">General Features <i class="bi bi-caret-down-fill float-end"></i></a>
                     <div class="collapse" id="generalMenu">
-                        <a href="#profile_update" class="list-group-item list-group-item-action ps-4">Update your profile</a>
-                        <a href="#chatbot-list" class="list-group-item list-group-item-action ps-4">Switch Language</a>
+                        <a href="#update-profile" class="list-group-item list-group-item-action ps-4">Update your profile</a>
+                        <a href="#switch-language" class="list-group-item list-group-item-action ps-4">Switch Language</a>
                     </div>
                 </div>
             </nav>
@@ -179,11 +181,9 @@
                         </video>
                     </div>
                 </section>
-
-                
                 <section id="restaurant-delete" class="mb-5">
                     <h2>Restaurant – Delete a Restaurant</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <!-- <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p> -->
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/update_rest.mp4') }}" type="video/mp4">
@@ -203,7 +203,7 @@
                 </section>
                 <section id="menu-create" class="mb-5">
                     <h2>Menu - Create a Menu item</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <p class="mb-3">You can create a new Menu item by following these steps</p>
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/menu/menu_creation.mp4') }}" type="video/mp4">
@@ -212,7 +212,7 @@
                 </section>
                 <section id="menu-update" class="mb-5">
                     <h2>Menu - Update a Menu item</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <p class="mb-3">You can also update a menu item. It will take a little extra time to update since AI will generate Nutritions and Allergens data based on the Menu ingredients.</p>
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/menu/menu_update.mp4') }}" type="video/mp4">
@@ -221,7 +221,7 @@
                 </section>
                 <section id="menu-delete" class="mb-5">
                     <h2>Menu - Delete a Menu item</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <!-- <p class="mb-3">The .</p> -->
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/menu/menu_delete.mp4') }}" type="video/mp4">
@@ -240,36 +240,211 @@
                         </video>
                     </div>
                 </section>
-                <section id="menu-create" class="mb-5">
+                <section id="table-create" class="mb-5">
                     <h2>Tables - Create a table record</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <p class="mb-3">You can create a new table item by following these steps</p>
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/table/new_table.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </section>
-                <section id="menu-update" class="mb-5">
+                <section id="table-update" class="mb-5">
                     <h2>Tables - Update a Table record</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <!-- <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p> -->
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/table/update_table.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </section>
-                <section id="menu-delete" class="mb-5">
+                <section id="table-delete" class="mb-5">
                     <h2>Tables - Delete a Table recprd</h2>
-                    <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p>
+                    <!-- <p class="mb-3">Here we explore the chatbot management screen. See how to view all chatbots, check their statuses and access analytics.</p> -->
                     <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
                         <video controls>
                             <source src="{{ url_for('static', filename='videos/table/delete_table.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </section>
-                
 
+                <!-- Reservation Sections -->
+                <section id="reservation-list" class="mb-5">
+                    <h2>Reservation - Reservation List</h2>
+                    <p class="mb-3">List of Reservations</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/reservation/list_reservation.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="reservation-create" class="mb-5">
+                    <h2>Reservation - Create a new Reservation</h2>
+                    <p class="mb-3">Manually create a new Reservation.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/reservation/new_reservation.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="reservation-update" class="mb-5">
+                    <h2>Reservation - Update a Reservation</h2>
+                    <p class="mb-3">How to update a single Reservation record</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/reservation/reservation_update.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="reservation-delete" class="mb-5">
+                    <h2>Reservation - Delete a Reservation</h2>
+                    <p class="mb-3">We can delete a reservation item.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/reservation/delete_reservation.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
 
+                <!-- Promotions Sections -->
+                <section id="promotion-details" class="mb-5 mt-3">
+                    <h2>Promotions - How it works</h2>
+                    <p class="mb-2">Promotion is a feature by which we can send WhatsApp marketing messages to the targeted users.</p>
+                    <p class="mb-2">Currently we have 4 Promotion trigger types, means for 4 use cases the promotions will be sent to the users. These are:</p>
+                    <ul class="mb-2">
+                        <li><b>Yearly</b> : Every year, at a certain time, this promotion will be sent to the targeted users.</li>
+                        <ul>
+                            <li>Birthday</li>
+                            <li>Anniversary</li>
+                        </ul>
+                        <li><b>Menu Selected</b> : This promotion will be sent to the users who have been ordered the selected menu(s) in their bookings.</li>
+                        <li><b>Inactivity</b> : You have to put how many days a user have to be inactive in order to get this promotion message.</li>
+                        <li><b>Reservation Count</b> : This promotion is specially for repeated & loyal customers who have made bookings multiple times in a restaurant.</li>
+                    </ul>
+                    <p class="mb-3">In the Validity Period configuration, you have to set two dates, <b>Valid from</b> and <b>Valid to</b>, which represents from which date the promotion will start working, and until which date, the promotion will be halted.</p>
+
+                    
+                </section>
+                <section id="promotion-list" class="mb-5">
+                    <h2>Promotions - List of Promotions</h2>
+                    <p class="mb-3">List of Promotions</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/promotions/list_promotion.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="promotion-create" class="mb-5">
+                    <h2>Promotions - Create a new Promotion</h2>
+                    <p class="mb-3">Here is how you can create a new promotion.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/promotions/new_promotion.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="promotion-update" class="mb-5">
+                    <h2>Promotions - Update a Promotion</h2>
+                    <p class="mb-3">We can also update a promotion.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/promotions/promotion_update.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="promotion-delete" class="mb-5">
+                    <h2>Promotions - Delete a Promotion</h2>
+                    <p class="mb-3">You can also delete a promotion record.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/promotions/promotion_delete.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+
+                <!-- Chatbots Sections -->
+                <section id="chatbot-details" class="mb-5">
+                    <h2>WhatsApp Chatbot - How it works</h2>
+                    <p class="mb-3">WhatsApp chatbot is an automated chat response generation system which can handle customers through Business WhatsApp Account.</p>
+                    
+                </section>
+                <section id="chatbot-list" class="mb-5">
+                    <h2>WhatsApp Chatbot - List of Chatbots</h2>
+                    <p class="mb-3">List of Chatbots.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/chatbot/list_chatbot.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="chatbot-create" class="mb-5">
+                    <h2>WhatsApp Chatbot - Create a new chatbot</h2>
+                    <p class="mb-3">To create a whatsapp chatbot, you will need these resources:</p>
+                    <ul>
+                        <li>Twilio account</li>
+                        <li>A WhatsApp sender in Twilio (Verified)</li>
+                        <li>OpenAI API key</li>
+                    </ul>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/chatbot/create_new_chatbot.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="chatbot-sales-level" class="mb-5">
+                    <h2>WhatsApp Chatbot - Update Sales level</h2>
+                    <p class="mb-3">You can update sales level very easily by going to the chatbot update section. Currently we are offering 5 sales level. These are:</p>
+                    <ul>
+                        <li>Level 1 - Reservation only</li>
+                        <li>Level 2 - Menu Rewards</li>
+                        <li>Level 3 - Dish Prioritization</li>
+                        <li>Level 4 - Personalized Recommendations</li>
+                        <li>Level 5 - Promotions Module</li>
+                    </ul>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/chatbot/sales_level_update.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="chatbot-contacts" class="mb-5">
+                    <h2>WhatsApp Chatbot - WhatsApp Contacts</h2>
+                    <p class="mb-3">The WhatsApp users who have been contacting with the chatbots</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/chatbot/contacts.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="chatbot-message-history" class="mb-5">
+                    <h2>WhatsApp Chatbot - Message History</h2>
+                    <p class="mb-3">You can also see all the message history of the WhatsApp chatbot with the users.</p>
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/chatbot/chat_history.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+
+                <!-- general Sections -->
+                <section id="update-profile" class="mb-5">
+                    <h2>Update your profile</h2>
+                    <!-- <p class="mb-3">List of Tables</p> -->
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/general/profile_update.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
+                <section id="switch-language" class="mb-5">
+                    <h2>Switch Language</h2>
+                    <!-- <p class="mb-3">List of Tables</p> -->
+                    <div class="ratio ratio-16x9 w-100" style="max-width: 1200px;">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='videos/general/language_change.mp4') }}" type="video/mp4">
+                        </video>
+                    </div>
+                </section>
 
             </main>
         </div>
